@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="register.css">
+    <link rel="stylesheet" href="login.css">
+    <link rel="stylesheet" href="payment.css">
+    <link rel="stylesheet" href="transactions.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100&amp;display=swap" rel="stylesheet">
+    <link href="http://fonts.cdnfonts.com/css/night-in-tokyo" rel="stylesheet">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100&display=swap" rel="stylesheet">
+    <script defer src="./src/controller.js"></script>
+    <title>Kakashi E-Wallet!</title>
+</head>
+<body>
+    <!-- Register page -->
+    <main id="main-register">
+        <!-- Left form side -->
+        <section id="register-section">
+            <!-- Logo cantainer -->
+            <div id="logo-container">
+                <div id="logo"> 
+                    <img src="/assets/hair.png">
+                    <h1> KAKASHI DESIGN </h1>
+                </div>
+            </div>
+            <!-- Form container wit welcome message -->
+            <div id="form-container">
+                <div id="welcome-message-container">
+                    <div id="welcome-left-side-element-container">
+                        <div id="welcome-left-side-element"></div>
+                    </div>
+                    <div id="welcome-message-c">
+                        <h2> Welcome! </h2>
+                        <p> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer id ullamcorper orci. Etiam finibus.</p>
+                    </div>
+                </div>
+                <div id="form-sub-container">
+                    <form>
+                        <div class="form-row-register" id="name-row">
+                            <div class="input-text-register">
+                                <p>First Name</p>
+                                <p>Last Name</p>
+                            </div>
+                            <div class="inputs-place-register">
+                                <input type="text" placeholder="Someone" class="input-register" id="first-name-inp" required>
+                                <input type="text" placeholder="Example" class="input-register" id="last-name-inp" required>
+                            </div> 
+                        </div>
+                        <div class="form-row-register" id="email-row">
+                            <!-- <div class="inputs-place-register">
+                                <input type="text" placeholder="Email ID" class="input input-width">
+                            </div>  -->
+                            <div class="form-row-register" id="name-row">
+                                <div class="input-text-register">
+                                    <p>Email</p>
+                                    <p id="username-margin">Username</p>
+                                </div>
+                                <div class="inputs-place-register">
+                                    <input type="email" placeholder="someone@kakashi.com" class="input-register " id="mail-inp" required>
+                                    <input type="text" placeholder="SomeoneE" class="input-register" id="username-inp" required>
+                                </div> 
+                            </div>
+                        </div>
+                        <div class="form-row-register" id="passowrd-row">
+                            <div class="inputs-place-register">
+                                <input type="password" placeholder="Password" class="input-register input-width" id="password-inp" required>
+                            </div> 
+                        </div>
+                        <div class="form-row-register" id="confirm-passowrd-row">
+                            <div class="inputs-place-register">
+                                <input type="password" placeholder="Confirm Password" class="input-register input-width" required id="confirm-password-inp">
+                            </div> 
+                        </div>
+                        <div class="form-row-register" id="form-important-row">
+                            <input type="checkbox" id="mail" name="mail" value="mail" required>
+                            <label for="mail" class="check-text">Yes, I want to recieve mails.</label><br>
+                            <input type="checkbox" id="terms" name="terms" value="terms" class="check-text" required>
+                            <label for="terms" class="check-text">I agree to the Terms & Privacy Policy </label><br>
+                        </div>
+                        <div class="form-row-register" id="form-buttons">
+                            <button type="button" class="button-register" id="sign-up"> Sign Up</button>
+                            <button type="button" class="button-register" id="sign-in"> Sign In</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </section>
+        <aside id="register-aside">
+            <div id="img-container-register">
+                <div id="img-overlay-register">
+                    <img src="/assets/wp8641496.jpg">
+                    <div id="color-overlay-register"></div>
+                </div>
+            </div>
+        </aside>
+        
+
+    </main>
+
+    <!-- Login page -->
+
+
+    <main id="login-main" class="">
+        <aside id="login-aside">
+            <div id="img-container-login">
+                <div id="img-overlay-login">
+                    <img src="/assets/pravim se ja.png">
+                    <div id="color-overlay-login"></div>
+                </div>
+            </div>
+        </aside>
+        <section id="login-section">
+            <h1 id="login-h1"> LOGIN </h1>
+            <form>
+                <div id="login-box-holder">
+                    <div class="form-row-login" id="name-row">
+                        <div class="input-text-login">
+                            <p>Username</p>
+                        </div>
+                        <div class="inputs-place">
+                            <input type="text" placeholder="Nyzz" class="input-login " id="login-username">
+                        </div> 
+                    </div>    
+                    <div class="form-row-login" id="name-row">
+                        <div class="input-text-login">
+                            <p>Password</p>
+                        </div>
+                        <div class="inputs-place">
+                            <input type="password" placeholder="*******" class="input-login " id="login-password">
+                        </div> 
+                    </div>    
+
+                    <div class="form-row-login" id="pass">
+                        <input type="checkbox" id="pass" name="pass" value="pass">
+                        <label for="pass" class="check-text"> Lorem ipsum dolor sit amet.</label><br>
+                    </div>
+
+                    <div class="form-row-login" id="form-buttons">
+                        <button type="button" class="button-login" id="login"> Login</button>
+                        <button type="button" class="button-login" id="noAccount"> No account? </button>
+                    </div>
+                </div>           
+            </form>
+        </section>
+    </main>
+
+
+    <!-- Payment page -->
+    <div id="payment-body">
+
+        <section id="payment-header">
+            <h1> PAYMENT DETAILS </h1>
+        </section>
+        <section id="card-holder">
+            <div id="credit-card-holder">
+                <div id="credit-card">
+                    <div id="chip">
+                        <img src="/assets/chip.png">
+                    </div>
+                    <div id="numbers">
+                        <div class="num">1234</div>
+                        <div class="num">5678</div>
+                        <div class="num">9101</div>
+                        <div class="num">1121</div>
+                    </div>
+                    <div id="info">
+                        <p id="card-name-card"> Nijaz Andelić </p>
+                        <p> Valid through: <span id="card-valid-card-span">02/22</span></p>
+                    </div>
+                </div>
+            </div>
+            <div id="form-holder">
+                <form>
+                    <div id="data-inputs">
+                        <div class="form-row" id="name-row">
+                            <div class="input-text">
+                                <p>Name on card</p>
+                            </div>
+                            <div class="inputs-place">
+                                <input type="text" placeholder="Name Surname" class="input-card card-input" id="name-on-card" data-altID="card-name-card">
+                            </div> 
+                        </div>    
+                        
+                        <div class="form-row" id="card-row">
+                            <div class="input-text">
+                                <p>Card Number</p>
+                            </div>
+                            <div class="inputs-place">
+                                <input type="number" placeholder="1234 5678 9101 1121" maxlength="16"  class="input-card card-input" id="card-number" data-altID="numbers"
+                                oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
+                                >
+                            </div> 
+                        </div>    
+                        
+                        <div class="form-row" id="valid-row">
+                            <div class="input-texts">
+                                <p>Valid Through</p>
+                                <p>CVV</p>
+                            </div>
+                            <div class="inputs-place">
+                                <input type="text" placeholder="02/22" class="input-card sinput card-input" id="valid" maxlength="4" data-altID="card-valid-card-span">
+                                <input type="number" placeholder="201" class="input-card sinput card-input" id="cvv" maxlength="3" 
+                                oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
+                                data-altID="cvv">
+                            </div> 
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </section>
+        <section id="button-holder">
+            <button type="button" class="button" id="proceed">Proceed</button>
+        </section>
+    </div>
+        
+        <!-- Transactions page -->
+        
+        <div id="index-main" class="">
+        
+        <header id="index-header">
+            <div id="paragraph-holder">
+                <p> Good evening, <span id="set-name">Nijaz</span>!</p>
+            </div>
+            <div id="logo-holder">
+                <img src="/assets/hair.png">
+            </div>
+        </header>
+
+        <div id="main-part-container">
+            
+            <div id="balance-header">
+                <div id="balance-header-holder">
+                    <div>
+                        <p>Current balance</p>
+                        <p>As of <span id="as-of-date">07/01/2022, 21:19</span></p>
+                    </div>
+                    <p><span id="updatable-balance">1.000.000</span> KM</p>
+                </div>
+            </div>
+            
+            
+            <div id="functions-part">
+
+                <div id="transactions-page"></div>
+
+                <div id="transactions-functions">
+                    <div id="deposit" class="func">
+                        <p>Deposti money</p>
+                        <div id="deposit-form-box">
+                            <form>
+                                <input type="text" class="input-index" id="deposit-input" placeholder="Price">
+                                <button type="button" class="buttonI" id="deposit-button">&#8594;</button>
+                            </form>
+                        </div>
+                    </div>
+                    <div id="transfer" class="func">
+                        <p>Transfer money</p>
+                        <div id="transfer-form-box">
+                            <form>
+                                <input type="text" class="input-index" id="transfer-username" placeholder="Username">
+                                <input type="text" class="input-index" id="transfer-money" placeholder="Price">
+                                <button type="button" class="buttonI" id="transfer-button" >&#8594;</button>
+                            </form>
+                        </div>
+                    </div>
+                    <div id="close-account" class="func">
+                        <p>Remove account</p>
+                        <div id="close-form-box">
+                            <form>
+                                <input type="text" class="input-index" id="del-account-username" placeholder="Username">
+                                <input type="password" class="input-index" id="del-account-pw" placeholder="Password">
+                                <button type="button" class="buttonI" id="remove-button">&#8594;</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="data-part">
+                <div id="left-part">
+                    <p>IN: <span id="in-money">10000</span> KM</p> 
+                    <p>OUT: <span id="out-money">10000</span> KM</p>
+                    <button id="sort-money">SORT: <span id="sort-span">&#8593;</span></button>
+                </div>
+                <div id="right-part">
+                    <button type="button" class="buttonC" id="transfer-on-card"> Transfer on card </button>
+                    <button type="button" class="buttonC" id="log-out"> Log out </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>
+

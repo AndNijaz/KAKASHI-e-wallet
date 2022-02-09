@@ -1,0 +1,101 @@
+#login-aside {
+  width: 60vw;
+  height: 100vh;
+}
+
+#img-container-login {
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+#img-overlay-login {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  -webkit-clip-path: polygon(34% 0, 11% 50%, 33% 100%, 0 100%, 0 44%, 0 0);
+  clip-path: polygon(66% 0, 48% 50%, 66% 100%, 0 100%, 0 44%, 0 0);
+}
+#img-overlay-login > img {
+  overflow: hidden;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  left: -12vw;
+}
+
+#color-overlay-login {
+  width: 100%;
+  height: 100%;
+  background: #c4c4c4;
+  opacity: 0.3;
+}
+
+#login-h1 {
+  font-size: 3.4vw;
+  font-family: "Night in Tokyo", sans-serif;
+  background: -webkit-linear-gradient(#000000, #8edbff);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+#login-main {
+  display: flex;
+}
+
+#login-section {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+#login-section > h1 {
+  justify-self: flex-start;
+  bottom: 200px;
+  margin-top: 10vh;
+  margin-bottom: 15vh;
+}
+
+.input-login {
+  outline: none;
+  border: 0px solid black;
+  border-bottom: 2px solid transparent;
+  border-image: linear-gradient(45deg, #000000, #8edbff);
+  border-image-slice: 1;
+  width: 25vw;
+  padding: 10px;
+  font-size: 1.2vw;
+}
+
+#login-box-holder {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-row-login {
+  margin-top: 5%;
+}
+
+.button-login {
+  background: linear-gradient(to right, #506c6d 0%, #8edbff 100%);
+  width: 10vw;
+  outline: none;
+  border: 0px solid transparent;
+  height: 5vh;
+  border-radius: 20px;
+  color: white;
+  font-size: 1.2vw;
+}
+
+#noAccount {
+  margin-left: 5%;
+  width: 10vw;
+  background: #fff;
+
+  border: double 1px transparent;
+  border-radius: 30px;
+  background-image: linear-gradient(white, white),
+    linear-gradient(45deg, #000000, #8edbff);
+  background-origin: border-box;
+  background-clip: content-box, border-box;
+  color: #848484;
+}

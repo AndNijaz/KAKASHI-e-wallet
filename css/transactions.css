@@ -1,0 +1,288 @@
+#index-main {
+  display: flex;
+  flex-direction: column;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+}
+
+#index-header {
+  display: flex;
+  /* width: 100%; */
+  height: 15vh;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 1.5vw;
+  padding: 0 5vw;
+}
+
+#index-header img {
+  height: 25vh;
+}
+
+#main-part-container {
+  margin: 0 10vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  /* justify-content: space-around; */
+}
+
+#balance-header-holder {
+  display: flex;
+  justify-content: space-between;
+  font-size: 2.5vw;
+  font-weight: bold;
+}
+
+#balance-header-holder > div {
+  display: flex;
+  flex-direction: column;
+}
+
+#balance-header-holder p:first-child {
+  font-size: 2vw;
+}
+
+#balance-header-holder > div > p:last-child {
+  font-size: 1vw;
+}
+
+#functions-part {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  margin-top: 2.5%;
+  height: 60%;
+}
+
+#transactions-page {
+  width: 48%;
+  overflow-y: scroll;
+  border: 4px solid transparent;
+  border-image: linear-gradient(45deg, #000000, #8edbff);
+  border-image-slice: 1;
+  border-radius: 15px;
+}
+
+#transactions-page {
+  width: 48%;
+  overflow-y: scroll;
+  border: double 4px transparent;
+  border-radius: 15px;
+  background-image: linear-gradient(white, white),
+    linear-gradient(to right, #000000, #8edbff);
+  background-origin: border-box;
+  background-clip: content-box, border-box;
+}
+
+.transaction {
+  display: flex;
+  justify-content: space-between;
+  padding: 20px;
+  border-bottom: 1px solid transparent;
+  border-image: linear-gradient(45deg, #000000, #8edbff);
+  border-image-slice: 1;
+  border-radius: 15px;
+}
+
+.t-div {
+  display: flex;
+}
+
+.deposit {
+  background: linear-gradient(to right, #506c6d 0%, #8edbff 100%);
+  width: 9vw;
+  outline: none;
+  border: 0px solid transparent;
+  height: 3.5vh;
+  border-radius: 20px;
+  color: white;
+  font-size: 1.2vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#transactions-page::-webkit-scrollbar {
+  display: none;
+}
+
+.withdraw {
+  background: linear-gradient(to right, #506c6d 0%, #ff8e8e 100%);
+  width: 9vw;
+  outline: none;
+  border: 0px solid transparent;
+  height: 3.5vh;
+  border-radius: 20px;
+  color: white;
+  font-size: 1.2vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.t-div div:last-child {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 0.7vw;
+  margin-left: 1vw;
+}
+
+.transaction > div:last-child {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: bold;
+  font-size: 1.5vw;
+}
+
+#transactions-functions {
+  width: 48%;
+  display: flex;
+  flex-direction: column;
+  /* height: 100%; */
+  justify-content: space-between;
+}
+
+.func {
+  height: 30%;
+  border-radius: 15px;
+  padding: 2vw;
+  margin-bottom: 2.5vh;
+  color: white;
+}
+
+.input-index {
+  border-radius: 5px;
+  outline: none;
+  border: 0px solid black;
+  margin-top: 2%;
+  height: 2.5vh;
+  width: 13vw;
+  margin-right: 1%;
+  padding: 5px;
+}
+
+#deposit {
+  background: linear-gradient(to right, #506c6d 0%, #8edbff 100%);
+}
+
+#transfer {
+  background: linear-gradient(to right, #506c6d 0%, #e5e5e5 100%);
+}
+
+#close-account {
+  background: linear-gradient(to right, #506c6d 0%, #ff8e8e 100%);
+}
+
+.buttonI {
+  border: 0px solid black;
+  background: white;
+  width: 3vw;
+  height: 2.5vh;
+  border-radius: 5px;
+}
+
+#data-part {
+  font-weight: bold;
+  margin-top: 5%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+#left-part {
+  display: flex;
+  justify-content: space-around;
+  width: 50%;
+}
+
+#right-part {
+  display: flex;
+  /* justify-content: space-around; */
+  justify-content: space-around;
+  width: 50%;
+}
+
+.buttonC {
+  background: linear-gradient(to right, #506c6d 0%, #8edbff 100%);
+  width: 10vw;
+  outline: none;
+  border: 0px solid transparent;
+  height: 5vh;
+  border-radius: 20px;
+  color: white;
+  font-size: 1.2vw;
+}
+
+#sort-money {
+  background-color: transparent;
+  outline: none;
+  border: 0px solid transparent;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.hidden {
+  display: none !important;
+}
+
+#modal {
+  top: 0px;
+  left: 0px;
+  position: absolute;
+  width: 100vw;
+  height: 100vh;
+  /* background: #ffffff55; */
+  background: #8edbff55;
+  backdrop-filter: blur(4px);
+}
+
+#modal-container {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 50vw;
+  height: 70vh;
+  transform: translate(-50%, -50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 10px 10px 10px 3px;
+  box-shadow: 2px 1px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+#x-holder {
+  height: 50%;
+  width: 100%;
+  background: linear-gradient(to bottom, #506c6d 0%, #ff8e8e 100%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#x-holder > img {
+  height: 70%;
+}
+
+#message-holder {
+  height: 50%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+  align-items: center;
+  background: #fff;
+}
+
+#message-holder > p {
+  font-weight: bold;
+}
+
+#transfer-on-card {
+  width: 12.5vw;
+}
