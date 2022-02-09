@@ -1,3 +1,7 @@
+.hidden {
+  display: none;
+}
+
 #index-main {
   display: flex;
   flex-direction: column;

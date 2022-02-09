@@ -1,3 +1,7 @@
+.hidden {
+  display: none;
+}
+
 #payment-body {
   display: flex;
   flex-direction: column;
