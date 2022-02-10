@@ -2,7 +2,6 @@
   "name": "ewallet",
   "version": "1.0.0",
   "description": "E-Wallet page",
-  "main": "script.js",
   "scripts": {
     "start": "parcel index.html",
     "build": "parcel build index.html"
