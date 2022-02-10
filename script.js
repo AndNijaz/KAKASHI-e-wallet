@@ -702,7 +702,7 @@ class app {
             <div id="modal">
             <div id="modal-container">
                 <div id="x-holder">
-                    <img src="/assets/pngkit_png-red-x_3741314.png">
+                    <img src="./assets/pngkit_png-red-x_3741314.png">
                 </div>
                 <div id="message-holder">
                     <h2>Ooops!</h2>
