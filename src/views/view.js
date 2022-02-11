@@ -6,12 +6,13 @@ export default class View {
 
     }
 
-
+    //Recieves array of form elements
+    _clearFormElements(formElements){
+        formElements.forEach(el => el.innerText = "");
+    }
 
     _displayMarkup(markup, hideElement){
-        console.log(markup);
         hideElement.classList.add("hidden");
-        console.log(this.#parentElement);
         this.#parentElement.insertAdjacentHTML("afterbegin", markup);
     }    
 

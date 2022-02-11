@@ -83,11 +83,13 @@ class Register extends View{
         //This sends data to api
         handler(this.#user);
 
-        this._loadPayment();
+        this._clearFormElements([this.#firstName.value, this.#lastName.value, this.#email.value, this.#username.value, this.#password.value, this.#cPassword.value]);
+
+        this._generaterPaymentMarkup();
     };
     
     
-    _loadPayment(){
+    _generaterPaymentMarkup(){
         const markup = `
         <div id="payment-body" class="">
 

@@ -4,8 +4,8 @@ import * as model from "./model.js";
 import Register from "./views/registerView.js";
 import { _errorModal } from "./helpers.js";
 
-// console.log("hai");
 
+console.log("jen dva jen dva");
 const card = async function(){
     
 }
@@ -24,6 +24,5 @@ const register = async function(){
 //Function which trigger on load
 const init = async function(){
     await register();
-    console.log("hahahaha");
 }
 init();

@@ -9,7 +9,17 @@
   "author": "Andelić Nijaz",
   "license": "ISC",
   "dependencies": {
-    "parcel": "^2.3.0",
+    "parcel": "^2.3.1",
     "regenerator-runtime": "^0.13.9"
-  }
+  },
+  "main": "script.js",
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AndNijaz/e-wallet.git"
+  },
+  "bugs": {
+    "url": "https://github.com/AndNijaz/e-wallet/issues"
+  },
+  "homepage": "https://github.com/AndNijaz/e-wallet#readme"
 }

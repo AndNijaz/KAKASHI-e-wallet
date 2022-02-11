@@ -38,9 +38,8 @@ export const fetchUserAccounts = async function(){
 }
 
 export const postUserAccount = async function(user){
-    console.log(user);
     const data = await sendJSON(API_URL, user);
-    console.log(data);
+    return data;
 }
 
 // export const 
