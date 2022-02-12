@@ -1,3 +1,6 @@
+import { REGISTER_PAGE } from "./configuration.js";
+import { LOGIN_PAGE } from "./configuration.js";
+
 export const getJSON = async function(url){
     try {
         const dataJSON  = await fetch(url);
@@ -27,6 +30,23 @@ export const sendJSON = async function(url, uploadData){
     }
 }
 
+export const patchUserCreditCardJSON = async function(userID, newCreditCard){
+    try{
+        const dataJSON = await fetch(`http://localhost:3000/datas/${userID}`, {
+            method: "PATCH",
+            headers: {
+                'Content-Type': 'application/json'
+              },
+            body: JSON.stringify({
+                creditCard: newCreditCard
+            })
+        })
+        .then(response => response.json()).catch(err => console.log(err));
+    } catch(err){
+        console.log(err);
+    }
+}
+
 
 export const _errorModal = function(message){
     const modal = `
@@ -46,4 +66,18 @@ export const _errorModal = function(message){
     
     document.getElementsByTagName("body")[0].insertAdjacentHTML("afterend", modal);
     document.getElementById("close-modal-button").addEventListener("click", () => document.getElementById("modal").remove());
+}
+
+export const showLogin = function(){
+    LOGIN_PAGE.classList.remove("hidden");
+}
+export const hideLogin = function(){
+    LOGIN_PAGE.classList.add("hidden");
+}
+
+export const showrRegister = function(){
+    REGISTER_PAGE.classList.remove("hidden");
+}
+export const hideRegister = function(){
+    REGISTER_PAGE.classList.add("hidden");
 }

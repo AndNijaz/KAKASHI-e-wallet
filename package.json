@@ -13,7 +13,6 @@
     "regenerator-runtime": "^0.13.9"
   },
   "main": "script.js",
-  "devDependencies": {},
   "repository": {
     "type": "git",
     "url": "git+https://github.com/AndNijaz/e-wallet.git"

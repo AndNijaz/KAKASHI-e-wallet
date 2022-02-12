@@ -1,6 +1,7 @@
-import { API_URL } from "./configuration";
-import { getJSON } from "./helpers";
-import { sendJSON } from "./helpers";
+import { API_URL } from "./configuration.js";
+import { getJSON, patchUserJSON } from "./helpers.js";
+import { sendJSON } from "./helpers.js";
+import { patchUserCreditCardJSON } from "./helpers.js";
 
 class User {
     
@@ -41,5 +42,10 @@ export const postUserAccount = async function(user){
     const data = await sendJSON(API_URL, user);
     return data;
 }
+
+export const patchUserCreditCardJSON = async function(user, creditCard){
+    patchUserCreditCardJSON(user._id, creditCard)
+
+} 
 
 // export const 

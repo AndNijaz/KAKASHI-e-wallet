@@ -1,5 +1,7 @@
 import View from "./view.js";
 import { _errorModal } from "../helpers.js";
+import {showLogin} from "../helpers.js";
+import {hideRegister} from "../helpers.js";
 
 class Register extends View{
     #mainRegister = document.getElementById("main-register");
@@ -9,7 +11,6 @@ class Register extends View{
     #username = document.getElementById("username-inp");
     #password = document.getElementById("password-inp");
     #cPassword = document.getElementById("confirm-password-inp");
-    #mailNotf = document.getElementById("mail");
     #cookies = document.getElementById("terms");
     #buttonSignUp = document.getElementById("sign-up");
     #buttonSignIn = document.getElementById("sign-in");
@@ -20,6 +21,14 @@ class Register extends View{
     constructor(){
         super();
     }
+
+    addHandlerSignIn(){
+        this.#buttonSignIn.addEventListener("click", ()=> {
+            hideRegister();
+            showLogin();
+        });
+    }
+
     _sendRegistredUser(){
         return this.#user;
     };
@@ -50,12 +59,12 @@ class Register extends View{
         }
     }
 
-    async _createUserObject(users, handler){
+    async _createUserObject(users, handler, cardView){
 
         //If form is not filled, it will return false
         if(!this._checkFrom([this.#firstName.value, this.#lastName.value, this.#email.value, this.#username.value, this.#password.value, this.#cPassword.value])){
             _errorModal("Please fill form!");
-            return
+            return;
         };
         
         //If there is duplicate username, it will return false
@@ -81,14 +90,20 @@ class Register extends View{
         this._createViewUserObject();
 
         //This sends data to api
-        handler(this.#user);
+        await handler(this.#user);
+        
 
-        this._clearFormElements([this.#firstName.value, this.#lastName.value, this.#email.value, this.#username.value, this.#password.value, this.#cPassword.value]);
+        //Clear form elements
+        this._clearFormElements([this.#firstName, this.#lastName, this.#email, this.#username, this.#password, this.#cPassword, ]);
 
-        this._generaterPaymentMarkup();
+        //Generate markup
+        this._generaterPaymentMarkup(cardView);
+
+        //Run card view functions
+        cardView();
+
     };
-    
-    
+
     _generaterPaymentMarkup(){
         const markup = `
         <div id="payment-body" class="">
@@ -159,11 +174,13 @@ class Register extends View{
         </div>
         `;
 
+        //Display markup and hide previous site
         this._displayMarkup(markup, this.#mainRegister);
+
     }
 
-    addHandlerSignUp(users, handler){
-        this.#buttonSignUp.addEventListener("click", this._createUserObject.bind(this, users, handler));
+    addHandlerSignUp(users, handler, cardView){
+        this.#buttonSignUp.addEventListener("click", this._createUserObject.bind(this, users, handler, cardView));
     }
 
 }
