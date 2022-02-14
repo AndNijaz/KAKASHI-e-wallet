@@ -3,7 +3,36 @@ import { getJSON } from "./helpers.js";
 import * as model from "./model.js";
 import Register from "./views/registerView.js";
 import cardView from "./views/cardView.js";
+import loginView from "./views/loginView.js";
+import transactionsView from "./views/transactionsView.js";
 import { _errorModal } from "./helpers.js";
+
+
+//Transactions view
+const transactions = async function(user){
+    //Because transactionsView is new object, it's current user will be reset so we have to manually set it again
+    transactionsView._setCurrentUser(user);
+    //This will generate neccesary html for transactions view
+    transactionsView.generateHTML();
+    //This will initialize HTML elements
+    transactionsView.initializeHTMLelements();
+    //This gonna fill html data with user data
+    transactionsView.fillHTML();
+
+    transactionsView.transactionsFunctions(model.patchUserCreditCard, model.patchUserMovements, model.fetchUserAccounts);
+
+    console.log(await model.fetchUserAccounts());
+}
+
+
+//Login view
+const login = async function(){
+
+    loginView.initializeHTMLelements();
+
+    loginView.addHandlerLogin(await model.fetchUserAccounts(), transactions);
+    loginView.addHandlerSignUp();
+}
 
 //Card view 
 const card = async function(){
@@ -12,7 +41,7 @@ const card = async function(){
     //1. Argument: UserID 
     //2. Argument: credit card object
     const patchRegisterCreditCard = function(userID, creditCard){
-        model.patchUserCreditCardJSON(userID, creditCard);
+        model.patchUserCreditCard(userID, creditCard);
     }
 
     //When markup generates (after Sign Up) it will automatically incialise object elements to dom elements values
@@ -22,7 +51,7 @@ const card = async function(){
     cardView._liveFormInputEvent();
     
     //Handler for proceed button
-    cardView.addHandlerProceed(patchRegisterCreditCard, model.fetchUserAccounts);
+    cardView.addHandlerProceed(patchRegisterCreditCard, model.fetchUserAccounts, login);
 }
 
 //rEGISTER VIEW
@@ -40,7 +69,7 @@ const register = async function(){
     Register.addHandlerSignUp(await model.fetchUserAccounts(), sendRegisterdUser, card);
 
     //Function which handles what will happen when SignIn is pressed
-    Register.addHandlerSignIn();
+    Register.addHandlerSignIn(login);
 
 }
 

@@ -47,6 +47,23 @@ export const patchUserCreditCardJSON = async function(userID, newCreditCard){
     }
 }
 
+export const patchUserMovementsJSON = async function(userID, newMovements){
+    try{
+        const dataJSON = await fetch(`http://localhost:3000/datas/${userID}`, {
+            method: "PATCH",
+            headers: {
+                'Content-Type': 'application/json'
+              },
+            body: JSON.stringify({
+                movements: newMovements
+            })
+        })
+        .then(response => response.json()).catch(err => console.log(err));
+    } catch(err){
+        console.log(err);
+    }
+}   
+
 
 export const _errorModal = function(message){
     const modal = `

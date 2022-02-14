@@ -19,7 +19,8 @@ class CardView extends View {
         nameOnCard: "",
         cardNumber: "",
         validThrough: "",
-        cvv: ""
+        cvv: "",
+        balance: 10000
     }
 
     constructor(){
@@ -30,7 +31,7 @@ class CardView extends View {
         return Object.values(this.#creditCard).some(property => (property === "" || property === undefined)) ? true : false;
     }
 
-    async addHandlerProceed(patchUserCreditCard, getUsers){
+    async addHandlerProceed(patchUserCreditCard, getUsers, login){
         this.#proceedButton.addEventListener("click", async function(){
             //If form isn't filled, it will return true
             if(this._creditFormFilled()){
@@ -49,6 +50,7 @@ class CardView extends View {
             this._clearFormElements([this.#cardNumber, this.#validThrough, this.#nameOnCard, ]);
             this.#paymentBody.classList.add("hidden");
             showLogin();
+            login();
 
         }.bind(this));
 

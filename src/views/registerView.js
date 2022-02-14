@@ -22,11 +22,13 @@ class Register extends View{
         super();
     }
 
-    addHandlerSignIn(){
-        this.#buttonSignIn.addEventListener("click", ()=> {
+    addHandlerSignIn(loginView){
+        this.#buttonSignIn.addEventListener("click", function(){
             hideRegister();
+            this._clearFormElements([this.#firstName, this.#lastName, this.#email, this.#username, this.#password, this.#cPassword]);
             showLogin();
-        });
+            loginView();
+         }.bind(this));
     }
 
     _sendRegistredUser(){
@@ -55,7 +57,6 @@ class Register extends View{
             password: this.#password.value,
             creditCard: {},
             movements:[],
-            balance: 0
         }
     }
 

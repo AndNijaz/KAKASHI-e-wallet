@@ -2,6 +2,7 @@ import { API_URL } from "./configuration.js";
 import { getJSON, patchUserJSON } from "./helpers.js";
 import { sendJSON } from "./helpers.js";
 import { patchUserCreditCardJSON } from "./helpers.js";
+import { patchUserMovementsJSON } from "./helpers.js";
 
 class User {
     
@@ -43,9 +44,14 @@ export const postUserAccount = async function(user){
     return data;
 }
 
-export const patchUserCreditCardJSON = async function(user, creditCard){
-    patchUserCreditCardJSON(user._id, creditCard)
-
+export const patchUserCreditCard = async function(user, creditCard){
+    patchUserCreditCardJSON(user._id, creditCard);
 } 
+
+export const patchUserMovements = async function(user, movements){
+    patchUserMovementsJSON(user._id, movements)
+}
+
+
 
 // export const 

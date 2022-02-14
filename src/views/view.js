@@ -11,6 +11,10 @@ export default class View {
         this.#currentUser = user;
     }
 
+    _getCurrentUser(){
+        return this.#currentUser;
+    }
+
     //Recieves array of form elements
     _clearFormElements(formElements){
         formElements.forEach(el => el.value = "");
