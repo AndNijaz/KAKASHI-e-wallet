@@ -4,6 +4,7 @@ import { showLogin } from "../helpers.js";
 
 class TransactionView extends View {
     #mainRegister = document.getElementById("main-register");
+    #sort = "toUP"
     #curBal;
 
     #movementsContainer;
@@ -22,7 +23,6 @@ class TransactionView extends View {
     #sortSpan;
     #logOut;
     #transferCard;
-    #sort;
 
     constructor(){
         super();
@@ -286,20 +286,60 @@ class TransactionView extends View {
         this._setDate();
         this._updateBalance(user);
         this._countInOut(user);
-        console.log(user.movements);
         this._displayMovement(user.movements);
     }
 
 
     addHandlerLogOut(login){
         this.#logOut.addEventListener("click", function(){
-            console.log("work");
             document.getElementById("index-main").remove();
             showLogin();
             login();
         });
     }
+    
+    addHandlerTransferOnCard(patchUserCreditCard, patchMovementsFunction){
+        const user = this._getCurrentUser();
+        this.#transferCard.addEventListener("click", async function(){
+            if(this.#curBal === 0) _errorModal("You don't have money on account!");
+            user.creditCard.balance = user.creditCard.balance + this.#curBal;
+            this._movementLogic("withdraw", user, this.#curBal, patchMovementsFunction);
 
+            await patchUserCreditCard(user, user.creditCard);
+            // this.#curBal;
+        }.bind(this));
+    }
+
+    addHandlerSort(){
+        let movements;
+        this.#sortMoney.addEventListener("click", function(){
+            // if(this.#sort === "toUP") this.#sortSpan.innerHTML = "\&#8595";
+            // if(sort === "toLower") this.#sortSpan.innerHTML = "\&#8593";
+
+            movements = this._getCurrentUser().movements;
+
+            if(this.#sort === "toUP"){
+                this.#sortSpan.innerHTML = "\&#8595";
+                movements.sort(function(a, b){
+                    return a.price-b.price;
+                })
+                this.#movementsContainer.innerHTML = "";
+                this.#sortSpan.innerHTML = "\&#8595";
+                this._displayMovement(movements);
+                this.#sort = "toLower";
+            }
+            else if(this.#sort === "toLower"){
+                this.#sortSpan.innerHTML = "\&#8593"
+                movements.sort(function(a, b){
+                    return b.price-a.price;
+                })
+                this.#movementsContainer.innerHTML = "";
+                this.#sortSpan.innerHTML = "\&#8593";
+                this._displayMovement(movements);
+                this.#sort = "toUP";
+            }
+        }.bind(this));
+    }
 }
 
 export default new TransactionView();

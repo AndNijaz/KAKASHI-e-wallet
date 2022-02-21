@@ -30,14 +30,12 @@ class LoginView extends View {
 
     _checkUserCredentials(users, transactions){
         let usr = "";
-        console.log(users);
         users.some(user => {
             if(user.username === this.#loginUsername.value && user.password === this.#loginPassword.value){
                 // this._setCurrentUser(user);
                 usr = user;
             }
         });
-        console.log(usr);
         if(usr) this._setCurrentUser(usr)
         else this._setCurrentUser("");
         if(!this._getCurrentUser()) return;
@@ -49,7 +47,6 @@ class LoginView extends View {
 
     async addHandlerLogin(fetchUsers, transactions){
         const users = await fetchUsers();
-        console.log(users);
         this.#loginButton.addEventListener("click", async function(e){
             e.preventDefault();
 

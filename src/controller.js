@@ -10,7 +10,6 @@ import { _errorModal } from "./helpers.js";
 
 //Transactions view
 const transactions = async function(user){
-    console.log(user);
     //Because transactionsView is new object, it's current user will be reset so we have to manually set it again
     transactionsView._setCurrentUser(user);
     //This will generate neccesary html for transactions view
@@ -24,6 +23,9 @@ const transactions = async function(user){
 
     transactionsView.addHandlerLogOut(login);
 
+    transactionsView.addHandlerTransferOnCard(model.patchUserCreditCard, model.patchUserMovements);
+
+    transactionsView.addHandlerSort();
 }
 
 

@@ -50,8 +50,6 @@ export const patchUserCreditCard = async function(user, creditCard){
 } 
 
 export const patchUserMovements = async function(user, movements){
-    console.log(user);
-    console.log(movements);
     await patchUserMovementsJSON(user._id, movements)
 }
 
