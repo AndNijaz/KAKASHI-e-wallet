@@ -21,7 +21,6 @@ const transactions = async function(user){
 
     transactionsView.transactionsFunctions(model.patchUserCreditCard, model.patchUserMovements, model.fetchUserAccounts);
 
-    console.log(await model.fetchUserAccounts());
 }
 
 
@@ -40,8 +39,8 @@ const card = async function(){
     //Function that calls function from model for patching user account
     //1. Argument: UserID 
     //2. Argument: credit card object
-    const patchRegisterCreditCard = function(userID, creditCard){
-        model.patchUserCreditCard(userID, creditCard);
+    const patchRegisterCreditCard = async function(user, creditCard){
+        await model.patchUserCreditCard(user, creditCard);
     }
 
     //When markup generates (after Sign Up) it will automatically incialise object elements to dom elements values

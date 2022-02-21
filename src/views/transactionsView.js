@@ -1,5 +1,5 @@
-import View from "./view";
-import { _errorModal } from "../helpers";
+import View from "./view.js";
+import { _errorModal } from "../helpers.js";
 
 class TransactionView extends View {
     #mainRegister = document.getElementById("main-register");

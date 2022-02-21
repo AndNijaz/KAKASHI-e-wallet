@@ -29,13 +29,11 @@ class LoginView extends View {
     }
 
     _checkUserCredentials(users, transactions){
-
         users.some(user => {
             if(user.username === this.#loginUsername.value && user.password === this.#loginPassword.value){
                 this._setCurrentUser(user);
             };   
         });
-
         if(!this._getCurrentUser()) return;
 
         hideLogin();

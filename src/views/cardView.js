@@ -44,7 +44,7 @@ class CardView extends View {
             user = user.slice(-1);
             [user] = user;
 
-           
+            
             await patchUserCreditCard(user, this.#creditCard);
 
             this._clearFormElements([this.#cardNumber, this.#validThrough, this.#nameOnCard, ]);

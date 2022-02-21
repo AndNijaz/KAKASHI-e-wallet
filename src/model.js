@@ -1,5 +1,5 @@
 import { API_URL } from "./configuration.js";
-import { getJSON, patchUserJSON } from "./helpers.js";
+import { getJSON } from "./helpers.js";
 import { sendJSON } from "./helpers.js";
 import { patchUserCreditCardJSON } from "./helpers.js";
 import { patchUserMovementsJSON } from "./helpers.js";
@@ -45,13 +45,15 @@ export const postUserAccount = async function(user){
 }
 
 export const patchUserCreditCard = async function(user, creditCard){
-    patchUserCreditCardJSON(user._id, creditCard);
+    await patchUserCreditCardJSON(user._id, creditCard);
 } 
 
 export const patchUserMovements = async function(user, movements){
-    patchUserMovementsJSON(user._id, movements)
+    await patchUserMovementsJSON(user._id, movements)
 }
 
 
 
 // export const 
+
+//user = {_id: '6212b7f29f04f821af37437f', firstName: 'Nijaz', lastName: 'Andelić', email: 'andelicnijaz@gmail.com', username: 'Nyzz7', …}, patchCardFunction = async ƒ (user, creditCard), patchMovementsFunction = async ƒ (user, movements)
