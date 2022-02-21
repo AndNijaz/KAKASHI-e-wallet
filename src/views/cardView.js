@@ -49,6 +49,7 @@ class CardView extends View {
 
             this._clearFormElements([this.#cardNumber, this.#validThrough, this.#nameOnCard, ]);
             this.#paymentBody.classList.add("hidden");
+            document.getElementById("payment-body").remove();
             showLogin();
             login();
 

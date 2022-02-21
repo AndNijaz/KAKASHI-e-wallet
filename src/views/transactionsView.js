@@ -254,7 +254,7 @@ class TransactionView extends View {
         if(user.username === deleteUsername && user.password === deletePassword){
             await removeAccount(user);
         } else {
-            this._errorModal("Invalid username or password!");
+            _errorModal("Invalid username or password!");
         }
 
         document.getElementById("index-main").remove();
