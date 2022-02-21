@@ -1,5 +1,6 @@
 import View from "./view.js";
 import { _errorModal } from "../helpers.js";
+import { showLogin } from "../helpers.js";
 
 class TransactionView extends View {
     #mainRegister = document.getElementById("main-register");
@@ -129,6 +130,8 @@ class TransactionView extends View {
             </div>
         </div>
         `
+
+
         this._displayMarkup(markup, this.#mainRegister);
 
     }
@@ -190,13 +193,14 @@ class TransactionView extends View {
 
     _pushMovementAppUser(user, value){
         user.movements.push({price: +value, date: new Date()});
+        // this._getCurrentUser().movements.push({price: +value, date: new Date()});
     }
 
-    _movementLogic(type, user, value, patchMovementsFunction){
+    async _movementLogic(type, user, value, patchMovementsFunction){
         this._pushMovementAppUser(user, `${type === "deposit" ? +value : -value}`);
         const lastMovement = user.movements.slice(-1)[0];
         this._generateMovementHtmlAndDisplay(lastMovement);
-        patchMovementsFunction(user, user.movements);
+        await patchMovementsFunction(user, user.movements);
         this._updateBalance(user);
         this._countInOut(user);
     }
@@ -221,7 +225,7 @@ class TransactionView extends View {
         let sendTo;
         const users = await fetchUsers();
         const recieverUsername = this.#transferUsernameInput.value;       
-        users.forEach(user => {
+        users.forEach(async function(user){
             if(user.username === recieverUsername){
                 sendTo = user;  
             } 
@@ -243,7 +247,22 @@ class TransactionView extends View {
         }
     }
 
-    transactionsFunctions(patchCardFunction, patchMovementsFunction, fetchUsers){
+    async _caseDelete(user, removeAccount, login){
+        const deleteUsername = this.#delAccountUsername.value;
+        const deletePassword = this.#delAccountPW.value;
+
+        if(user.username === deleteUsername && user.password === deletePassword){
+            await removeAccount(user);
+        } else {
+            this._errorModal("Invalid username or password!");
+        }
+
+        document.getElementById("index-main").remove();
+        showLogin();
+        login();
+    }
+
+    transactionsFunctions(patchCardFunction, patchMovementsFunction, fetchUsers, removeAccount, login){
         const user = this._getCurrentUser();
         this.#transactionsFunction.forEach(tf => tf.addEventListener("click", async function(e){
             if(e.target.getAttribute("id") === "deposit-button"){
@@ -255,7 +274,7 @@ class TransactionView extends View {
             }
 
             if(e.target.getAttribute("id") === "remove-button"){
-                this._caseDelete();
+                this._caseDelete(user, removeAccount, login);
             }
  
         }.bind(this)));
@@ -267,11 +286,19 @@ class TransactionView extends View {
         this._setDate();
         this._updateBalance(user);
         this._countInOut(user);
+        console.log(user.movements);
         this._displayMovement(user.movements);
     }
 
 
-    
+    addHandlerLogOut(login){
+        this.#logOut.addEventListener("click", function(){
+            console.log("work");
+            document.getElementById("index-main").remove();
+            showLogin();
+            login();
+        });
+    }
 
 }
 

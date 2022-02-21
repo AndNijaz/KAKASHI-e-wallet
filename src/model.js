@@ -3,6 +3,7 @@ import { getJSON } from "./helpers.js";
 import { sendJSON } from "./helpers.js";
 import { patchUserCreditCardJSON } from "./helpers.js";
 import { patchUserMovementsJSON } from "./helpers.js";
+import { removeAccountJSON } from "./helpers.js";
 
 class User {
     
@@ -49,9 +50,14 @@ export const patchUserCreditCard = async function(user, creditCard){
 } 
 
 export const patchUserMovements = async function(user, movements){
+    console.log(user);
+    console.log(movements);
     await patchUserMovementsJSON(user._id, movements)
 }
 
+export const removeAccount = async function(user){
+    await removeAccountJSON(user._id);
+}
 
 
 // export const 

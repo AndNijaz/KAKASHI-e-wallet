@@ -40,7 +40,8 @@ class LoginView extends View {
         transactions(this._getCurrentUser());
     };
 
-    addHandlerLogin(users, transactions){
+    async addHandlerLogin(fetchUsers, transactions){
+        const users = await fetchUsers();
         this.#loginButton.addEventListener("click", async function(e){
             e.preventDefault();
 

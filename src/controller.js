@@ -19,7 +19,9 @@ const transactions = async function(user){
     //This gonna fill html data with user data
     transactionsView.fillHTML();
 
-    transactionsView.transactionsFunctions(model.patchUserCreditCard, model.patchUserMovements, model.fetchUserAccounts);
+    transactionsView.transactionsFunctions(model.patchUserCreditCard, model.patchUserMovements, model.fetchUserAccounts, model.removeAccount, login);
+
+    transactionsView.addHandlerLogOut(login);
 
 }
 
@@ -29,7 +31,7 @@ const login = async function(){
 
     loginView.initializeHTMLelements();
 
-    loginView.addHandlerLogin(await model.fetchUserAccounts(), transactions);
+    loginView.addHandlerLogin(model.fetchUserAccounts, transactions);
     loginView.addHandlerSignUp();
 }
 

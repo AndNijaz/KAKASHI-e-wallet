@@ -64,6 +64,19 @@ export const patchUserMovementsJSON = async function(userID, newMovements){
     }
 }   
 
+export const removeAccountJSON = async function(userID){
+    try {
+
+        await fetch(`http://localhost:3000/datas/${userID}`, {
+            method: 'DELETE',
+        })
+        .then(res => res.text()) // or res.json()
+        .then(res => console.log(res))   
+    }
+    catch(err){
+        console.log(err);
+    }
+}
 
 export const _errorModal = function(message){
     const modal = `
@@ -84,6 +97,7 @@ export const _errorModal = function(message){
     document.getElementsByTagName("body")[0].insertAdjacentHTML("afterend", modal);
     document.getElementById("close-modal-button").addEventListener("click", () => document.getElementById("modal").remove());
 }
+
 
 export const showLogin = function(){
     LOGIN_PAGE.classList.remove("hidden");
