@@ -1,5 +1,6 @@
 import { REGISTER_PAGE } from "./configuration.js";
 import { LOGIN_PAGE } from "./configuration.js";
+import xPic from "../assets/pngkit_png-red-x_3741314.png";
 
 export const getJSON = async function(url){
     try {
@@ -83,7 +84,7 @@ export const _errorModal = function(message){
         <div id="modal">
         <div id="modal-container">
             <div id="x-holder">
-                <img src="/assets/pngkit_png-red-x_3741314.png">
+                <img src="${xPic}">
             </div>
             <div id="message-holder">
                 <h2>Ooops!</h2>

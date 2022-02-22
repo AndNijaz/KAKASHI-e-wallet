@@ -179,8 +179,8 @@ class TransactionView extends View {
         <div class="transaction">
             <div class="t-div">
                 <div class="${mov.price > 0 ? "deposit" : "withdraw"}">${mov.price > 0 ? "Deposit" : "Withdraw"}</div>
-                <div>${new Date(mov.date).getDate() + "/" + new Date(mov.date).getMonth()+1 + "/" + new Date(mov.date).getFullYear()}</div>
-
+                <div class="date-child">${new Date(mov.date).getDate() + "/" + new Date(mov.date).getMonth()+1 + "/" + new Date(mov.date).getFullYear()}</div>
+                ${mov.reciever ? `<div>${mov.reciever}</div>` : ""}
             </div>
                 <div>${mov.price} KM</div>
             </div>
@@ -194,13 +194,13 @@ class TransactionView extends View {
         });
     }
 
-    _pushMovementAppUser(user, value){
-        user.movements.push({price: +value, date: new Date()});
+    _pushMovementAppUser(user, value, reciever = ""){
+        user.movements.push({price: +value, date: new Date(), reciever});
         // this._getCurrentUser().movements.push({price: +value, date: new Date()});
     }
 
-    async _movementLogic(type, user, value, patchMovementsFunction){
-        this._pushMovementAppUser(user, `${type === "deposit" ? +value : -value}`);
+    async _movementLogic(type, user, value, patchMovementsFunction, reciever = ""){
+        this._pushMovementAppUser(user, `${type === "deposit" ? +value : -value}`, reciever);
         const lastMovement = user.movements.slice(-1)[0];
         this._generateMovementHtmlAndDisplay(lastMovement);
         await patchMovementsFunction(user, user.movements);
@@ -241,7 +241,7 @@ class TransactionView extends View {
 
         if(sendTo){
             //This will update for sender
-            this._movementLogic("withdraw", user, +this.#transferMoneyInput.value, patchMovementsFunction);
+            this._movementLogic("withdraw", user, +this.#transferMoneyInput.value, patchMovementsFunction, sendTo.username);
             //This will update for reciever
             this._pushMovementAppUser(sendTo, +this.#transferMoneyInput.value);
             await patchMovementsFunction(sendTo, sendTo.movements);     
@@ -306,7 +306,7 @@ class TransactionView extends View {
         this.#transferCard.addEventListener("click", async function(){
             if(this.#curBal === 0) _errorModal("You don't have money on account!");
             user.creditCard.balance = user.creditCard.balance + this.#curBal;
-            this._movementLogic("withdraw", user, this.#curBal, patchMovementsFunction);
+            this._movementLogic("withdraw", user, this.#curBal, patchMovementsFunction, "Credit Card");
 
             await patchUserCreditCard(user, user.creditCard);
             // this.#curBal;

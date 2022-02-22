@@ -132,6 +132,16 @@
   align-items: center;
   font-size: 0.7vw;
   margin-left: 1vw;
+  font-weight: 700;
+}
+
+.t-div div:nth-child(2) {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 0.7vw;
+  margin-left: 1vw;
+  font-weight: 700;
 }
 
 .transaction > div:last-child {
