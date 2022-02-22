@@ -185,13 +185,13 @@
   border: 0px solid black;
   background: white;
   width: 3vw;
-  height: 2.5vh;
+  height: 3.5vh;
   border-radius: 5px;
 }
 
 #data-part {
   font-weight: bold;
-  margin-top: 5%;
+  margin-top: 2.5%;
   display: flex;
   justify-content: space-between;
   align-items: center;

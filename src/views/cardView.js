@@ -1,6 +1,6 @@
 import View from "./view.js";
 import { _errorModal } from "../helpers.js";
-import {showLogin} from "../helpers.js";
+import { showLogin } from "../helpers.js";
 
 class CardView extends View {
     #nameOnCard;

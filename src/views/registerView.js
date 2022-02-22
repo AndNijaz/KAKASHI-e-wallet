@@ -1,7 +1,9 @@
 import View from "./view.js";
 import { _errorModal } from "../helpers.js";
-import {showLogin} from "../helpers.js";
-import {hideRegister} from "../helpers.js";
+import { showLogin } from "../helpers.js";
+import { hideRegister } from "../helpers.js";
+import  chip  from "../../assets/chip.png";
+// let chip = "../../assets/chip.png";
 
 class Register extends View{
     #mainRegister = document.getElementById("main-register");
@@ -116,7 +118,7 @@ class Register extends View{
             <div id="credit-card-holder">
                 <div id="credit-card">
                     <div id="chip">
-                        <img src="/assets/chip.png">
+                        <img src="${chip}">
                     </div>
                     <div id="numbers">
                         <div class="num">1234</div>

@@ -1,6 +1,8 @@
 import View from "./view.js";
 import { _errorModal } from "../helpers.js";
 import { showLogin } from "../helpers.js";
+import hair from "../../assets/hair.png"
+// let hair = "../../assets/hair.png"
 
 class TransactionView extends View {
     #mainRegister = document.getElementById("main-register");
@@ -62,7 +64,7 @@ class TransactionView extends View {
                     <p> Good evening, <span id="set-name"></span>!</p>
                 </div>
                 <div id="logo-holder">
-                    <img src="/assets/hair.png">
+                    <img src="${hair}">
                 </div>
             </header>
 
@@ -178,6 +180,7 @@ class TransactionView extends View {
             <div class="t-div">
                 <div class="${mov.price > 0 ? "deposit" : "withdraw"}">${mov.price > 0 ? "Deposit" : "Withdraw"}</div>
                 <div>${new Date(mov.date).getDate() + "/" + new Date(mov.date).getMonth()+1 + "/" + new Date(mov.date).getFullYear()}</div>
+
             </div>
                 <div>${mov.price} KM</div>
             </div>
