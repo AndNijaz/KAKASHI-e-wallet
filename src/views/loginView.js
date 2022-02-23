@@ -29,6 +29,7 @@ class LoginView extends View {
     }
 
     _checkUserCredentials(users, transactions){
+        if(this._getCurrentUser()) return;
         let usr = "";
         users.some(user => {
             if(user.username === this.#loginUsername.value && user.password === this.#loginPassword.value){
@@ -38,7 +39,11 @@ class LoginView extends View {
         });
         if(usr) this._setCurrentUser(usr)
         else this._setCurrentUser("");
-        if(!this._getCurrentUser()) return;
+
+        if(!this._getCurrentUser()) {
+            _errorModal("Invalid username or password");
+            return;
+        };
 
         hideLogin();
         if(document.getElementById("index-main")) document.getElementById("index-main").remove();
@@ -46,14 +51,18 @@ class LoginView extends View {
     };
 
     async addHandlerLogin(fetchUsers, transactions){
-        const users = await fetchUsers();
+        this._setCurrentUser("");
+        this._clearFormElements([this.#loginUsername, this.#loginPassword]);
+        // const users = await fetchUsers();
         this.#loginButton.addEventListener("click", async function(e){
             e.preventDefault();
-
+            // const useri = await fetchUsers();
+            
             if(!this._checkFrom([this.#loginUsername.value, this.#loginPassword.value])){
                 _errorModal("Please fill form");
                 return;
             }
+            const users = await fetchUsers();
             this._checkUserCredentials(users, transactions);                
             }.bind(this));
     };

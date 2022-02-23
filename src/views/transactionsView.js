@@ -1,8 +1,8 @@
 import View from "./view.js";
 import { _errorModal } from "../helpers.js";
 import { showLogin } from "../helpers.js";
-import hair from "../../assets/hair.png"
-// let hair = "../../assets/hair.png"
+// import hair from "../../assets/hair.png"
+let hair = "../../assets/hair.png"
 
 class TransactionView extends View {
     #mainRegister = document.getElementById("main-register");
@@ -208,7 +208,9 @@ class TransactionView extends View {
         this._countInOut(user);
     }
 
-    async _caseDeposit(user, patchCardFunction, patchMovementsFunction){
+    async _caseDeposit(user, patchCardFunction, patchMovementsFunction, fetchUsers){
+        //Guard clausue (if serverd doesent work, it wont be able to fetch users and it will autmatically throw error. We'll see if the server works it will be able to fetch users)
+        if(!await fetchUsers()) return;
         const value = this.#depositInput.value;
         if(!value) return;
         user.creditCard.balance -= value;
@@ -228,18 +230,24 @@ class TransactionView extends View {
         let sendTo;
         const users = await fetchUsers();
         const recieverUsername = this.#transferUsernameInput.value;       
-        users.forEach(async function(user){
-            if(user.username === recieverUsername){
-                sendTo = user;  
+        users.forEach(function(us){
+            if(us.username === recieverUsername){
+                sendTo = us;  
             } 
         });
 
+        
         if(this.#curBal < +this.#transferMoneyInput.value) {
             _errorModal("You don't have money on application!");
             return;
         }
-
+        
         if(sendTo){
+            if(user._id === sendTo._id) {
+                _errorModal("You can't transfer money to yourself!");
+                return
+            };
+            // if(user === sendTo) console.log("halo konju");
             //This will update for sender
             this._movementLogic("withdraw", user, +this.#transferMoneyInput.value, patchMovementsFunction, sendTo.username);
             //This will update for reciever
@@ -250,16 +258,21 @@ class TransactionView extends View {
         }
     }
 
-    async _caseDelete(user, removeAccount, login){
+    async _caseDelete(user, removeAccount, login, fetchUsers){
         const deleteUsername = this.#delAccountUsername.value;
         const deletePassword = this.#delAccountPW.value;
 
         if(user.username === deleteUsername && user.password === deletePassword){
+            //Guard clausue (if serverd doesent work, it wont be able to fetch users and it will autmatically throw error. We'll see if the server works it will be able to fetch users)
+            if(!await fetchUsers()) return;
             await removeAccount(user);
+            // await removeAccount(user);
+            this._setCurrentUser("");
         } else {
             _errorModal("Invalid username or password!");
         }
 
+        if(this._getCurrentUser()) return;
         document.getElementById("index-main").remove();
         showLogin();
         login();
@@ -269,7 +282,7 @@ class TransactionView extends View {
         const user = this._getCurrentUser();
         this.#transactionsFunction.forEach(tf => tf.addEventListener("click", async function(e){
             if(e.target.getAttribute("id") === "deposit-button"){
-                this._caseDeposit(user, patchCardFunction, patchMovementsFunction);
+                this._caseDeposit(user, patchCardFunction, patchMovementsFunction, fetchUsers);
             }
 
             if(e.target.getAttribute("id") === "transfer-button"){
@@ -277,7 +290,7 @@ class TransactionView extends View {
             }
 
             if(e.target.getAttribute("id") === "remove-button"){
-                this._caseDelete(user, removeAccount, login);
+                this._caseDelete(user, removeAccount, login, fetchUsers);
             }
  
         }.bind(this)));
@@ -304,7 +317,10 @@ class TransactionView extends View {
     addHandlerTransferOnCard(patchUserCreditCard, patchMovementsFunction){
         const user = this._getCurrentUser();
         this.#transferCard.addEventListener("click", async function(){
-            if(this.#curBal === 0) _errorModal("You don't have money on account!");
+            if(this.#curBal === 0) {
+                _errorModal("You don't have money on account!")
+                return;
+            };
             user.creditCard.balance = user.creditCard.balance + this.#curBal;
             this._movementLogic("withdraw", user, this.#curBal, patchMovementsFunction, "Credit Card");
 

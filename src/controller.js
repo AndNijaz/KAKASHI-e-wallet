@@ -61,7 +61,30 @@ const card = async function(){
 //rEGISTER VIEW
 const register = async function(){
 
-    //Function which send user data to api
+    // const obj1 = {
+    //     godina: 20
+    // }
+
+    // const res = await(fetch("https://kakashiewallet.herokuapp.com/datas"))
+    // const data = await res.json();
+    // console.log(data);
+    
+    //     const res1  = await fetch("https://kakashiewallet.herokuapp.com/datas", {
+    //         method: "post",
+    //         headers: {
+    //             "Content-Type": "application/json"
+    //         },
+    //         body: JSON.stringify("krčma")
+    //     }
+    //     );
+    //     // const data1 = await res.json();;
+
+    // const res2 = await(fetch("https://kakashiewallet.herokuapp.com/datas"))
+    // const data2 = await res2.json();
+    // console.log(data2);
+
+
+        //Function which send user data to api
     const sendRegisterdUser = function(user){
         model.postUserAccount(user);
     }
@@ -70,7 +93,7 @@ const register = async function(){
     // 1. Argument: aLL users; Array;
     // 2. Aregument: Function for sending data to api
     // 3. Card view which must happen after sign up
-    Register.addHandlerSignUp(await model.fetchUserAccounts(), sendRegisterdUser, card);
+    Register.addHandlerSignUp(model.fetchUserAccounts, sendRegisterdUser, card);
 
     //Function which handles what will happen when SignIn is pressed
     Register.addHandlerSignIn(login);

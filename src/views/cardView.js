@@ -27,15 +27,16 @@ class CardView extends View {
         super();
     }
 
-    _creditFormFilled(){
-        return Object.values(this.#creditCard).some(property => (property === "" || property === undefined)) ? true : false;
-    }
+
 
     async addHandlerProceed(patchUserCreditCard, getUsers, login){
         this.#proceedButton.addEventListener("click", async function(){
-            //If form isn't filled, it will return true
-            if(this._creditFormFilled()){
+            if(!this._checkFrom([this.#nameOnCard.value, this.#cardNumber.value, this.#validThrough.value, this.#cvv.value])){
                 _errorModal("Please fill from!");
+                return;
+            }
+            if(this.#creditCard.cardNumber.length !== 16){
+                _errorModal("Please enter valid card number!");
                 return;
             }
 
@@ -107,7 +108,7 @@ class CardView extends View {
             if(el.getAttribute("id") === "numbers"){
                 text = this.#cardNumber.value;
                 this._fillCardNumber(text);
-                if(text.length === 16) this.#creditCard.cardNumber = text;
+                this.#creditCard.cardNumber = text;
             };
 
             if(el.getAttribute("id") === "card-name-card"){

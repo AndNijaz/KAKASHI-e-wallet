@@ -1,21 +1,23 @@
-import { REGISTER_PAGE } from "./configuration.js";
+import { API_URL, REGISTER_PAGE } from "./configuration.js";
 import { LOGIN_PAGE } from "./configuration.js";
-import xPic from "../assets/pngkit_png-red-x_3741314.png";
+// import xPic from "../assets/pngkit_png-red-x_3741314.png";
+let xPic = "../assets/pngkit_png-red-x_3741314.png";
 
 export const getJSON = async function(url){
     try {
-        const dataJSON  = await fetch(url);
-        const data = await dataJSON.json();
+        const res  = await fetch(url);
+        const data = await res.json();
+        if(!res.ok) throw new Error(`${data.message} ${res.status}`);
         return data;
 
     } catch(err){
-        console.log(err);
+        _errorModal(`${err.message}, ${err.message === "Failed to fetch" ? "Server error." : ""}!`);
     }
 }
 
 export const sendJSON = async function(url, uploadData){
     try {
-        const dataJSON  = await fetch(url, {
+        const res  = await fetch(url, {
             method: "post",
             headers: {
                 "Content-Type": "application/json"
@@ -23,17 +25,18 @@ export const sendJSON = async function(url, uploadData){
             body: JSON.stringify(uploadData) 
         }
         );
-        // const data = await dataJSON.json();
-        return dataJSON;
+        const data = res.json();
+        if(!res.ok) throw new Error(`${data.message} ${res.status}`);
+        return res;
 
     } catch(err){
-        console.log(err);
+        _errorModal(err.message);
     }
 }
 
 export const patchUserCreditCardJSON = async function(userID, newCreditCard){
     try{
-        const dataJSON = await fetch(`http://localhost:3000/datas/${userID}`, {
+        const res = await fetch(`${API_URL}/${userID}`, {
             method: "PATCH",
             headers: {
                 'Content-Type': 'application/json'
@@ -42,15 +45,17 @@ export const patchUserCreditCardJSON = async function(userID, newCreditCard){
                 creditCard: newCreditCard
             })
         })
-        .then(response => response.json()).catch(err => console.log(err));
+        const data = res.json();
+        if(!res.ok) throw new Error(`${data.message} ${res.status}`);
+        return res;
     } catch(err){
-        console.log(err);
+        _errorModal(err.message);
     }
 }
 
 export const patchUserMovementsJSON = async function(userID, newMovements){
     try{
-        const dataJSON = await fetch(`http://localhost:3000/datas/${userID}`, {
+        const res = await fetch(`${API_URL}/${userID}`, {
             method: "PATCH",
             headers: {
                 'Content-Type': 'application/json'
@@ -59,27 +64,31 @@ export const patchUserMovementsJSON = async function(userID, newMovements){
                 movements: newMovements
             })
         })
-        .then(response => response.json()).catch(err => console.log(err));
+        const data = res.json();;
+        if(!res.ok) throw new Error(`${data.message} ${res.status}`);
+        return res;
     } catch(err){
-        console.log(err);
+        _errorModal(err.message);
     }
 }   
 
 export const removeAccountJSON = async function(userID){
     try {
 
-        await fetch(`http://localhost:3000/datas/${userID}`, {
+        const res = await fetch(`${API_URL}/${userID}`, {
             method: 'DELETE',
         })
-        .then(res => res.text()) // or res.json()
-        .then(res => console.log(res))   
+        const data = res.json();;
+        if(!res.ok) throw new Error(`${data.message} ${res.status}`);
+        return res;
     }
     catch(err){
-        console.log(err);
+        _errorModal(err.message);
     }
 }
 
 export const _errorModal = function(message){
+    if(document.getElementById("modal")) return;
     const modal = `
         <div id="modal">
         <div id="modal-container">

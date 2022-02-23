@@ -2,8 +2,8 @@ import View from "./view.js";
 import { _errorModal } from "../helpers.js";
 import { showLogin } from "../helpers.js";
 import { hideRegister } from "../helpers.js";
-import  chip  from "../../assets/chip.png";
-// let chip = "../../assets/chip.png";
+// import  chip  from "../../assets/chip.png";
+let chip = "../../assets/chip.png";
 
 class Register extends View{
     #mainRegister = document.getElementById("main-register");
@@ -62,8 +62,8 @@ class Register extends View{
         }
     }
 
-    async _createUserObject(users, handler, cardView){
-
+    async _createUserObject(fetchUsers, handler, cardView){
+        const users = await fetchUsers();
         //If form is not filled, it will return false
         if(!this._checkFrom([this.#firstName.value, this.#lastName.value, this.#email.value, this.#username.value, this.#password.value, this.#cPassword.value])){
             _errorModal("Please fill form!");
@@ -182,8 +182,8 @@ class Register extends View{
 
     }
 
-    addHandlerSignUp(users, handler, cardView){
-        this.#buttonSignUp.addEventListener("click", this._createUserObject.bind(this, users, handler, cardView));
+    async addHandlerSignUp(fetchUsers, handler, cardView){
+        this.#buttonSignUp.addEventListener("click", this._createUserObject.bind(this, fetchUsers, handler, cardView));
     }
 
 }
