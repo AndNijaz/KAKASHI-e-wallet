@@ -5,7 +5,8 @@ import { showLogin } from "../helpers.js";
 class CardView extends View {
     #nameOnCard;
     #cardNumber;
-    #validThrough;
+    #validThroughOne;
+    #validThroughTwo;
     #cvv;
     #proceedButton; 
 
@@ -31,12 +32,22 @@ class CardView extends View {
 
     async addHandlerProceed(patchUserCreditCard, getUsers, login){
         this.#proceedButton.addEventListener("click", async function(){
-            if(!this._checkFrom([this.#nameOnCard.value, this.#cardNumber.value, this.#validThrough.value, this.#cvv.value])){
+            if(!this._checkFrom([this.#nameOnCard.value, this.#cardNumber.value, this.#validThroughOne.value, this.#validThroughTwo.value ,this.#cvv.value])){
                 _errorModal("Please fill from!");
                 return;
             }
             if(this.#creditCard.cardNumber.length !== 16){
                 _errorModal("Please enter valid card number!");
+                return;
+            }
+            if(+this.#validThroughOne.value < 1 || +this.#validThroughOne.value > 12){
+                _errorModal("Invalid month!");
+                this._clearFormElements([this.#validThroughOne]);
+                return;
+            }
+            if((+this.#validThroughTwo.value === +String(new Date().getFullYear()).slice(2)) && (+this.#validThroughOne.value < ((new Date().getMonth()+1)))){
+                _errorModal("Your credit card is not valid!");
+                this._clearFormElements([this.#validThroughTwo]);
                 return;
             }
 
@@ -48,7 +59,7 @@ class CardView extends View {
             
             await patchUserCreditCard(user, this.#creditCard);
 
-            this._clearFormElements([this.#cardNumber, this.#validThrough, this.#nameOnCard, ]);
+            this._clearFormElements([this.#cardNumber, this.#validThroughOne, this.#validThroughTwo, this.#nameOnCard, ]);
             this.#paymentBody.classList.add("hidden");
             document.getElementById("payment-body").remove();
             showLogin();
@@ -61,7 +72,8 @@ class CardView extends View {
     initializeHTMLelements(){
         this.#nameOnCard = document.getElementById("name-on-card");
         this.#cardNumber = document.getElementById("card-number");
-        this.#validThrough = document.getElementById("valid");
+        this.#validThroughOne = document.getElementById("card-valid-one");
+        this.#validThroughTwo = document.getElementById("card-valid-two");
         this.#cvv = document.getElementById("cvv");
         this.#proceedButton = document.getElementById("proceed");
     
@@ -72,17 +84,9 @@ class CardView extends View {
         this.#paymentBody = document.getElementById("payment-body")
     }
 
-    _fillCardValid(text){
-        let txt;
-        let txthelp = text.slice(0, 2);
-        if(txthelp > -1 && txthelp < 13 && txthelp !== undefined) {
-            txt = txthelp + "/" + text.slice(2, 5);
-            this.#cardCValidThrough.innerText = txt;
-        } else {
-            text = "";
-            this.#validThrough.value = text;
-            _errorModal("Invalid month!");
-        }
+    _fillCardValid(object){
+        if(object.type === "month") this.#cardCValidThrough.innerText = `${object.value}`; 
+        if(object.type === "year") this.#cardCValidThrough.innerText = `${object.value}`; 
     }
 
     _fillNameOnCard(text){
@@ -130,11 +134,35 @@ class CardView extends View {
                 if(text.length === 3) this.#creditCard.cvv = text; 
             }
 
+            
+            // console.log(el.getAttribute("id") === "card-valid-card-span");
+            // let text = "";
+            
             if(el.getAttribute("id") === "card-valid-card-span"){
-                text = this.#validThrough.value; 
-                this._fillCardValid(text);
-                if(text.length === 4) this.#creditCard.validThrough  = text;
+                let text1;
+                let text2;
+                if(inp.getAttribute("id") === "card-valid-one"){
+                    text1 = this.#validThroughOne.value; 
+                    text2 = this.#validThroughTwo.value;
+
+                    // const helperString = text;
+                    // const restString = `${text.slice(3) ? text.slice(3) : ""}`;
+                    this._fillCardValid({type: "month", value: `${text1}/${text2}`});
+                    this.#creditCard.validThrough  = `${text1}/${text2}`;
+                }
+                if(inp.getAttribute("id") === "card-valid-two"){
+                    text1 = this.#validThroughOne.value;
+                    text2 = this.#validThroughTwo.value; 
+
+                    this._fillCardValid({type: "year", value: `${text1}/${text2}`});
+                    this.#creditCard.validThrough  = `${text1}/${text2}`;
+                }
             }
+            // if(el.getAttribute("id") === "card-valid-card-span"){
+            //     text = this.#validThroughTwo.value; 
+            //     this._fillCardValid(text);
+            //     if(text.length === 4) this.#creditCard.validThrough  = text;
+            // }
 
         }.bind(this)));
 

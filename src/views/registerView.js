@@ -161,7 +161,13 @@ class Register extends View{
                                 <p>CVV</p>
                             </div>
                             <div class="inputs-place">
-                                <input type="text" placeholder="02/22" class="input-card sinput card-input" id="valid" maxlength="4" data-altID="card-valid-card-span">
+
+                                <span class="expiration">
+                                    <input type="text" name="month" placeholder="MM" maxlength="2" size="2" / id="card-valid-one" data-altID="card-valid-card-span" class="card-valid-inp card-input" min="1" max="12">
+                                    <span>/</span>
+                                    <input type="text" name="year" placeholder="YY" maxlength="2" size="2" / id="card-valid-two" data-altID="card-valid-card-span" class="card-valid-inp card-input">
+                                </span>
+
                                 <input type="number" placeholder="201" class="input-card sinput card-input" id="cvv" maxlength="3" 
                                 oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
                                 data-altID="cvv">

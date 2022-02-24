@@ -81,10 +81,13 @@ body {
 
 .input-texts {
   display: flex;
+  justify-content: space-between;
+  /* padding-right: 285px; */
+  padding-right: 15.15vw;
 }
 
 .input-texts p:last-child {
-  margin-left: 32%;
+  /* margin-left: 9.57vw; */
 }
 
 .inputs-place {
@@ -93,7 +96,7 @@ body {
 }
 
 .sinput {
-  width: 13vw;
+  width: 16vw;
 }
 
 .form-row {
@@ -168,4 +171,15 @@ body {
 
 #message-holder > p {
   font-weight: bold;
+}
+
+.card-valid-inp {
+  outline: none;
+  border: 0px solid black;
+  border-bottom: 2px solid transparent;
+  border-image: linear-gradient(45deg, #000000, #8edbff);
+  border-image-slice: 1;
+  /* width: 30vw; */
+  padding: 10px;
+  font-size: 1.2vw;
 }
