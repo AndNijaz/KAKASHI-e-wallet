@@ -1,7 +1,6 @@
 import { API_URL, REGISTER_PAGE } from "./configuration.js";
 import { LOGIN_PAGE } from "./configuration.js";
 import xPic from "../assets/pngkit_png-red-x_3741314.png";
-// let xPic = "../assets/pngkit_png-red-x_3741314.png";
 
 export const getJSON = async function(url){
     try {
@@ -11,7 +10,7 @@ export const getJSON = async function(url){
         return data;
 
     } catch(err){
-        _errorModal(`${err.message}, ${err.message === "Failed to fetch" ? "Server error." : ""}!`);
+        errorModal(`${err.message}, ${err.message === "Failed to fetch" ? "Server error." : ""}!`);
     }
 }
 
@@ -30,7 +29,7 @@ export const sendJSON = async function(url, uploadData){
         return res;
 
     } catch(err){
-        _errorModal(err.message);
+        errorModal(err.message);
     }
 }
 
@@ -49,7 +48,7 @@ export const patchUserCreditCardJSON = async function(userID, newCreditCard){
         if(!res.ok) throw new Error(`${data.message} ${res.status}`);
         return res;
     } catch(err){
-        _errorModal(err.message);
+        errorModal(err.message);
     }
 }
 
@@ -68,7 +67,7 @@ export const patchUserMovementsJSON = async function(userID, newMovements){
         if(!res.ok) throw new Error(`${data.message} ${res.status}`);
         return res;
     } catch(err){
-        _errorModal(err.message);
+        errorModal(err.message);
     }
 }   
 
@@ -83,11 +82,11 @@ export const removeAccountJSON = async function(userID){
         return res;
     }
     catch(err){
-        _errorModal(err.message);
+        errorModal(err.message);
     }
 }
 
-export const _errorModal = function(message){
+export const errorModal = function(message){
     if(document.getElementById("modal")) return;
     const modal = `
         <div id="modal">

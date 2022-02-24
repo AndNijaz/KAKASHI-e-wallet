@@ -1,12 +1,10 @@
 import View from "./view.js";
-import { _errorModal } from "../helpers.js";
+import { errorModal } from "../helpers.js";
 import { showLogin } from "../helpers.js";
 import { hideRegister } from "../helpers.js";
-import  chip  from "../../assets/chip.png";
-// let chip = "../../assets/chip.png";
+
 
 class Register extends View{
-    #mainRegister = document.getElementById("main-register");
     #firstName = document.getElementById("first-name-inp");
     #lastName = document.getElementById("last-name-inp");
     #email = document.getElementById("mail-inp");
@@ -27,7 +25,7 @@ class Register extends View{
     addHandlerSignIn(loginView){
         this.#buttonSignIn.addEventListener("click", function(){
             hideRegister();
-            this._clearFormElements([this.#firstName, this.#lastName, this.#email, this.#username, this.#password, this.#cPassword]);
+            this.clearFormElements([this.#firstName, this.#lastName, this.#email, this.#username, this.#password, this.#cPassword]);
             showLogin();
             loginView();
          }.bind(this));
@@ -62,29 +60,30 @@ class Register extends View{
         }
     }
 
-    async _createUserObject(fetchUsers, handler, cardView){
+    async _createUserObject(fetchUsers, sendUser, cardView){
+        //Fetching users
         const users = await fetchUsers();
         //If form is not filled, it will return false
-        if(!this._checkFrom([this.#firstName.value, this.#lastName.value, this.#email.value, this.#username.value, this.#password.value, this.#cPassword.value])){
-            _errorModal("Please fill form!");
+        if(!this.checkFrom([this.#firstName.value, this.#lastName.value, this.#email.value, this.#username.value, this.#password.value, this.#cPassword.value])){
+            errorModal("Please fill form!");
             return;
         };
         
         //If there is duplicate username, it will return false
         if(!this._checkUsername(users)){
-            _errorModal("Username already in use!");
+            errorModal("Username already in use!");
             return;
         }
 
         //If passwords don't match it will return false
         if(!this._checkPassword()) {
-            _errorModal("Password don't match!");
+            errorModal("Password don't match!");
             return; 
         }
 
         //If cookies arent checked, it will return false
         if(!this._checkCookies()){
-            _errorModal("Please check cookies!");
+            errorModal("Please check cookies!");
             return;
         }
 
@@ -93,103 +92,18 @@ class Register extends View{
         this._createViewUserObject();
 
         //This sends data to api
-        await handler(this.#user);
+        await sendUser(this.#user);
         
-
         //Clear form elements
-        this._clearFormElements([this.#firstName, this.#lastName, this.#email, this.#username, this.#password, this.#cPassword, ]);
-
-        //Generate markup
-        this._generaterPaymentMarkup(cardView);
+        this.clearFormElements([this.#firstName, this.#lastName, this.#email, this.#username, this.#password, this.#cPassword, ]);
 
         //Run card view functions
-        cardView();
+        cardView(this.#user);
 
     };
 
-    _generaterPaymentMarkup(){
-        const markup = `
-        <div id="payment-body" class="">
-
-        <section id="payment-header">
-            <h1> PAYMENT DETAILS </h1>
-        </section>
-        <section id="card-holder">
-            <div id="credit-card-holder">
-                <div id="credit-card">
-                    <div id="chip">
-                        <img src="${chip}">
-                    </div>
-                    <div id="numbers">
-                        <div class="num">1234</div>
-                        <div class="num">5678</div>
-                        <div class="num">9101</div>
-                        <div class="num">1121</div>
-                    </div>
-                    <div id="info">
-                        <p id="card-name-card"> ${this.#user.firstName} ${this.#user.lastName} </p>
-                        <p> Valid through: <span id="card-valid-card-span">02/22</span></p>
-                    </div>
-                </div>
-            </div>
-            <div id="form-holder">
-                <form>
-                    <div id="data-inputs">
-                        <div class="form-row" id="name-row">
-                            <div class="input-text">
-                                <p>Name on card</p>
-                            </div>
-                            <div class="inputs-place">
-                                <input type="text" placeholder="Name Surname" class="input-card card-input" id="name-on-card" data-altID="card-name-card">
-                            </div> 
-                        </div>    
-                        
-                        <div class="form-row" id="card-row">
-                            <div class="input-text">
-                                <p>Card Number</p>
-                            </div>
-                            <div class="inputs-place">
-                                <input type="number" placeholder="1234 5678 9101 1121" maxlength="16"  class="input-card card-input" id="card-number" data-altID="numbers"
-                                oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
-                                >
-                            </div> 
-                        </div>    
-                        
-                        <div class="form-row" id="valid-row">
-                            <div class="input-texts">
-                                <p>Valid Through</p>
-                                <p>CVV</p>
-                            </div>
-                            <div class="inputs-place">
-
-                                <span class="expiration">
-                                    <input type="text" name="month" placeholder="MM" maxlength="2" size="2" / id="card-valid-one" data-altID="card-valid-card-span" class="card-valid-inp card-input" min="1" max="12">
-                                    <span>/</span>
-                                    <input type="text" name="year" placeholder="YY" maxlength="2" size="2" / id="card-valid-two" data-altID="card-valid-card-span" class="card-valid-inp card-input">
-                                </span>
-
-                                <input type="number" placeholder="201" class="input-card sinput card-input" id="cvv" maxlength="3" 
-                                oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
-                                data-altID="cvv">
-                            </div> 
-                        </div>
-                    </div>
-                </form>
-            </div>
-        </section>
-        <section id="button-holder">
-            <button type="button" class="button" id="proceed">Proceed</button>
-        </section>
-        </div>
-        `;
-
-        //Display markup and hide previous site
-        this._displayMarkup(markup, this.#mainRegister);
-
-    }
-
-    async addHandlerSignUp(fetchUsers, handler, cardView){
-        this.#buttonSignUp.addEventListener("click", this._createUserObject.bind(this, fetchUsers, handler, cardView));
+    addHandlerSignUp(fetchUsers, sendUser, cardView){
+        this.#buttonSignUp.addEventListener("click", this._createUserObject.bind(this, fetchUsers, sendUser, cardView));
     }
 
 }

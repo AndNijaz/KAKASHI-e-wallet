@@ -1,24 +1,21 @@
-// import {API_URL} from "./configuration.js"
-import { getJSON } from "./helpers.js";
 import * as model from "./model.js";
-import Register from "./views/registerView.js";
+import registerView from "./views/registerView.js";
 import cardView from "./views/cardView.js";
 import loginView from "./views/loginView.js";
 import transactionsView from "./views/transactionsView.js";
-import { _errorModal } from "./helpers.js";
 
 
 //Transactions view
 const transactions = async function(user){
     //Because transactionsView is new object, it's current user will be reset so we have to manually set it again
-    transactionsView._setCurrentUser(user);
+    transactionsView.setCurrentUser(user);
     //This will generate neccesary html for transactions view
     transactionsView.generateHTML();
     //This will initialize HTML elements
     transactionsView.initializeHTMLelements();
     //This gonna fill html data with user data
     transactionsView.fillHTML();
-
+    //This will run eventlistener of transactions functions block (deposit, withdraw, delete account);
     transactionsView.transactionsFunctions(model.patchUserCreditCard, model.patchUserMovements, model.fetchUserAccounts, model.removeAccount, login);
 
     transactionsView.addHandlerLogOut(login);
@@ -31,15 +28,15 @@ const transactions = async function(user){
 
 //Login view
 const login = async function(){
-
+    //Its aleary created so only it needs to initialize element
     loginView.initializeHTMLelements();
-
+    //Add event listener when login is clicked
     loginView.addHandlerLogin(model.fetchUserAccounts, transactions);
     loginView.addHandlerSignUp();
 }
 
 //Card view 
-const card = async function(){
+const card = async function(user){
 
     //Function that calls function from model for patching user account
     //1. Argument: UserID 
@@ -48,11 +45,12 @@ const card = async function(){
         await model.patchUserCreditCard(user, creditCard);
     }
 
+    //This function generates html for payment view
+    cardView.generateHTML(user);
     //When markup generates (after Sign Up) it will automatically incialise object elements to dom elements values
     cardView.initializeHTMLelements();
-
     //Run card view live events
-    cardView._liveFormInputEvent();
+    cardView.liveFormInputEvent();
     
     //Handler for proceed button
     cardView.addHandlerProceed(patchRegisterCreditCard, model.fetchUserAccounts, login);
@@ -60,43 +58,20 @@ const card = async function(){
 
 //rEGISTER VIEW
 const register = async function(){
-
-    // const obj1 = {
-    //     godina: 20
-    // }
-
-    // const res = await(fetch("https://kakashiewallet.herokuapp.com/datas"))
-    // const data = await res.json();
-    // console.log(data);
-    
-    //     const res1  = await fetch("https://kakashiewallet.herokuapp.com/datas", {
-    //         method: "post",
-    //         headers: {
-    //             "Content-Type": "application/json"
-    //         },
-    //         body: JSON.stringify("krčma")
-    //     }
-    //     );
-    //     // const data1 = await res.json();;
-
-    // const res2 = await(fetch("https://kakashiewallet.herokuapp.com/datas"))
-    // const data2 = await res2.json();
-    // console.log(data2);
-
-
-        //Function which send user data to api
+    //Function which send user data to api
     const sendRegisterdUser = function(user){
         model.postUserAccount(user);
     }
 
+    
     //Function which handles what will hapen when SignUp is clicked;
-    // 1. Argument: aLL users; Array;
+    // 1. Argument: Function for fetching all users; Array;
     // 2. Aregument: Function for sending data to api
     // 3. Card view which must happen after sign up
-    Register.addHandlerSignUp(model.fetchUserAccounts, sendRegisterdUser, card);
+    registerView.addHandlerSignUp(model.fetchUserAccounts, sendRegisterdUser, card);
 
     //Function which handles what will happen when SignIn is pressed
-    Register.addHandlerSignIn(login);
+    registerView.addHandlerSignIn(login);
 
 }
 

@@ -1,5 +1,5 @@
 import View from "./view.js";
-import { _errorModal } from "../helpers.js";
+import { errorModal } from "../helpers.js";
 import { showLogin } from "../helpers.js";
 import hair from "../../assets/hair.png";
 // let hair = "../../assets/hair.png"
@@ -134,7 +134,7 @@ class TransactionView extends View {
         `
 
 
-        this._displayMarkup(markup, this.#mainRegister);
+        this.displayMarkup(markup, this.#mainRegister);
 
     }
 
@@ -196,66 +196,84 @@ class TransactionView extends View {
 
     _pushMovementAppUser(user, value, reciever = ""){
         user.movements.push({price: +value, date: new Date(), reciever});
-        // this._getCurrentUser().movements.push({price: +value, date: new Date()});
     }
 
     async _movementLogic(type, user, value, patchMovementsFunction, reciever = ""){
+        //This function push movement to user (in javascript);
         this._pushMovementAppUser(user, `${type === "deposit" ? +value : -value}`, reciever);
+        //This takes last movement (movement pushed in last section)
         const lastMovement = user.movements.slice(-1)[0];
+        //This will generate html and insert in movements container for movement
         this._generateMovementHtmlAndDisplay(lastMovement);
+        //This will patch user movements
         await patchMovementsFunction(user, user.movements);
+        //This will update balance on app
         this._updateBalance(user);
+        //This will update countInOut on app
         this._countInOut(user);
     }
 
     async _caseDeposit(user, patchCardFunction, patchMovementsFunction, fetchUsers){
         //Guard clausue (if serverd doesent work, it wont be able to fetch users and it will autmatically throw error. We'll see if the server works it will be able to fetch users)
         if(!await fetchUsers()) return;
-        const value = this.#depositInput.value;
-        if(!value) return;
-        user.creditCard.balance -= value;
 
+        //Gets money value from input
+        const value = this.#depositInput.value;
+        //If there is no money in input, it wont be possible to deposit (avoiding depositin 0)
+        if(!value) return;
+        
+        //Check if there is balance on credit card
         if(user.creditCard.balance < 0) {
-            _errorModal("You don't have money on credit card!");
+            errorModal("You don't have money on credit card!");
             return;
         }
-        
+        //Removes balance from user credit card
+        user.creditCard.balance -= value;
+        //This does everything with movement what should be done
         this._movementLogic("deposit", user, value, patchMovementsFunction);
-
+        //After everything finishes it patch credit card because money is taken from credit card
         await patchCardFunction(user, user.creditCard);
         
     }
 
     async _caseTransfer(user, patchMovementsFunction, fetchUsers){
+        //This will make temp variable for reciever
         let sendTo;
+        //Fetchig all users
         const users = await fetchUsers();
+        
         const recieverUsername = this.#transferUsernameInput.value;       
+
+        //Checking if there is any user same as reciever username, if there is, it will set temp reciever variable to that user
         users.forEach(function(us){
-            if(us.username === recieverUsername){
-                sendTo = us;  
-            } 
+            if(us.username === recieverUsername) sendTo = us;  
         });
 
-        
+        //This will check if there is current money on app, if there is not it will throw error
         if(this.#curBal < +this.#transferMoneyInput.value) {
-            _errorModal("You don't have money on application!");
+            errorModal("You don't have money on application!");
             return;
         }
         
-        if(sendTo){
-            if(user._id === sendTo._id) {
-                _errorModal("You can't transfer money to yourself!");
-                return
-            };
-            // if(user === sendTo) console.log("halo konju");
-            //This will update for sender
-            this._movementLogic("withdraw", user, +this.#transferMoneyInput.value, patchMovementsFunction, sendTo.username);
-            //This will update for reciever
-            this._pushMovementAppUser(sendTo, +this.#transferMoneyInput.value);
-            await patchMovementsFunction(sendTo, sendTo.movements);     
-        } else {
-            _errorModal("Invalid username!");
+        //If there is no reciever it will return and throw error for invalid username 
+        if(!sendTo){
+            errorModal("Invalid username!");
+            return;
         }
+
+        // if(sendTo){
+        if(user._id === sendTo._id) {
+            errorModal("You can't transfer money to yourself!");
+            return;
+        };
+
+        //This will update for sender/current user
+        this._movementLogic("withdraw", user, +this.#transferMoneyInput.value, patchMovementsFunction, sendTo.username);
+
+        //This will update for reciever
+        this._pushMovementAppUser(sendTo, +this.#transferMoneyInput.value);
+        await patchMovementsFunction(sendTo, sendTo.movements);     
+
     }
 
     async _caseDelete(user, removeAccount, login, fetchUsers){
@@ -267,20 +285,20 @@ class TransactionView extends View {
             if(!await fetchUsers()) return;
             await removeAccount(user);
             // await removeAccount(user);
-            this._setCurrentUser("");
+            this.setCurrentUser("");
         } else {
-            _errorModal("Invalid username or password!");
+            errorModal("Invalid username or password!");
         }
 
-        if(this._getCurrentUser()) return;
+        if(this.getCurrentUser()) return;
         document.getElementById("index-main").remove();
         showLogin();
         login();
     }
 
     transactionsFunctions(patchCardFunction, patchMovementsFunction, fetchUsers, removeAccount, login){
-        const user = this._getCurrentUser();
-        this.#transactionsFunction.forEach(tf => tf.addEventListener("click", async function(e){
+        const user = this.getCurrentUser();
+        this.#transactionsFunction.forEach(tf => tf.addEventListener("click", function(e){
             if(e.target.getAttribute("id") === "deposit-button"){
                 this._caseDeposit(user, patchCardFunction, patchMovementsFunction, fetchUsers);
             }
@@ -297,7 +315,7 @@ class TransactionView extends View {
     }
 
     fillHTML(){
-        const user = this._getCurrentUser();
+        const user = this.getCurrentUser();
         this._setName(user);
         this._setDate();
         this._updateBalance(user);
@@ -315,10 +333,10 @@ class TransactionView extends View {
     }
     
     addHandlerTransferOnCard(patchUserCreditCard, patchMovementsFunction){
-        const user = this._getCurrentUser();
+        const user = this.getCurrentUser();
         this.#transferCard.addEventListener("click", async function(){
             if(this.#curBal === 0) {
-                _errorModal("You don't have money on account!")
+                errorModal("You don't have money on account!")
                 return;
             };
             user.creditCard.balance = user.creditCard.balance + this.#curBal;
@@ -335,7 +353,7 @@ class TransactionView extends View {
             // if(this.#sort === "toUP") this.#sortSpan.innerHTML = "\&#8595";
             // if(sort === "toLower") this.#sortSpan.innerHTML = "\&#8593";
 
-            movements = this._getCurrentUser().movements;
+            movements = this.getCurrentUser().movements;
 
             if(this.#sort === "toUP"){
                 this.#sortSpan.innerHTML = "\&#8595";

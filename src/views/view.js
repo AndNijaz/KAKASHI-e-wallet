@@ -7,26 +7,30 @@ export default class View {
 
     }
 
-    _setCurrentUser(user){
+    //Setter for curret user
+    setCurrentUser(user){
         this.#currentUser = user;
     }
 
-    _getCurrentUser(){
+    //Getter for current user
+    getCurrentUser(){
         return this.#currentUser;
     }
 
     //Recieves array of form elements
-    _clearFormElements(formElements){
+    clearFormElements(formElements){
         formElements.forEach(el => el.value = "");
     }
 
-    _displayMarkup(markup, hideElement){
+    //Markup is html!
+    //Hide element is element which sould be hidden after created markup
+    displayMarkup(markup, hideElement){
         hideElement.classList.add("hidden");
         this.#parentElement.insertAdjacentHTML("afterbegin", markup);
     }    
 
-    //fromElements is array!!!
-    _checkFrom(formElements){
+    //Recieves a array of for elements
+    checkFrom(formElements){
         return formElements.some(el => el === "") ? false : true;
     };
 }

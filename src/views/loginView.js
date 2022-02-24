@@ -1,5 +1,5 @@
 import View from "./view.js";
-import { _errorModal } from "../helpers.js";
+import { errorModal } from "../helpers.js";
 import { hideLogin } from "../helpers.js";
 import { showrRegister } from "../helpers.js";
 
@@ -29,40 +29,51 @@ class LoginView extends View {
     }
 
     _checkUserCredentials(users, transactions){
-        if(this._getCurrentUser()) return;
+        //If there is somehow current user, it will stop executing, because current user should be make now, it shouldt be created up to now.
+        if(this.getCurrentUser()) return;
+        //Temp user
         let usr = "";
+        //Chek if there is some user which credentials merges
         users.some(user => {
-            if(user.username === this.#loginUsername.value && user.password === this.#loginPassword.value){
-                // this._setCurrentUser(user);
-                usr = user;
-            }
+            if(user.username === this.#loginUsername.value && user.password === this.#loginPassword.value) usr = user;
         });
-        if(usr) this._setCurrentUser(usr)
-        else this._setCurrentUser("");
 
-        if(!this._getCurrentUser()) {
-            _errorModal("Invalid username or password");
+        //If there is user with right credentials, it set current user to that user, else it will clear current user
+        if(usr) this.setCurrentUser(usr)
+        else this.setCurrentUser("");
+
+        //If credentials didn't pass, there won't be current user, so normally, that means we entered wrong username or password
+        if(!this.getCurrentUser()) {
+            errorModal("Invalid username or password");
             return;
         };
 
+        //If everything goes well, login page hides itself
         hideLogin();
+        //For avoiding creating duplicate transactions, the old one should be romved
         if(document.getElementById("index-main")) document.getElementById("index-main").remove();
-        transactions(this._getCurrentUser());
+        //This run transactions
+        transactions(this.getCurrentUser());
     };
 
     async addHandlerLogin(fetchUsers, transactions){
-        this._setCurrentUser("");
-        this._clearFormElements([this.#loginUsername, this.#loginPassword]);
-        // const users = await fetchUsers();
+        //If there was current user it will reset it
+        this.setCurrentUser("");
+        //Always when login page display, the form should be cleaned
+        this.clearFormElements([this.#loginUsername, this.#loginPassword]);
+
+        //Event listener for button
         this.#loginButton.addEventListener("click", async function(e){
             e.preventDefault();
-            // const useri = await fetchUsers();
             
-            if(!this._checkFrom([this.#loginUsername.value, this.#loginPassword.value])){
-                _errorModal("Please fill form");
+            //Check if form is filled
+            if(!this.checkFrom([this.#loginUsername.value, this.#loginPassword.value])){
+                errorModal("Please fill form");
                 return;
             }
+            //Waits for users to fetch
             const users = await fetchUsers();
+            //When users fetch, it will check user credentials and if they are right it will run transactions
             this._checkUserCredentials(users, transactions);                
             }.bind(this));
     };
