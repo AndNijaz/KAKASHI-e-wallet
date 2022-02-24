@@ -47,6 +47,7 @@ class CardView extends View {
             }
             if((+this.#validThroughTwo.value === +String(new Date().getFullYear()).slice(2)) && (+this.#validThroughOne.value < ((new Date().getMonth()+1)))){
                 _errorModal("Your credit card is not valid!");
+                
                 this._clearFormElements([this.#validThroughTwo]);
                 return;
             }
