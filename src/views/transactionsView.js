@@ -1,8 +1,8 @@
 import View from "./view.js";
 import { errorModal } from "../helpers.js";
 import { showLogin } from "../helpers.js";
-import hair from "../../assets/hair.png";
-// let hair = "../../assets/hair.png";
+// import hair from "../../assets/hair.png";
+let hair = "../../assets/hair.png";
 
 class TransactionView extends View {
     #mainRegister = document.getElementById("main-register");
@@ -313,6 +313,7 @@ class TransactionView extends View {
             }
 
             if(e.target.getAttribute("id") === "remove-button"){
+                this.renderSpinner();
                 this._caseDelete(user, removeAccount, login, fetchUsers);
             }
  
@@ -335,7 +336,7 @@ class TransactionView extends View {
             document.getElementById("index-main").remove();
             showLogin();
             login();
-        });
+        }.bind(this));
     }
     
     addHandlerTransferOnCard(patchUserCreditCard, patchMovementsFunction){

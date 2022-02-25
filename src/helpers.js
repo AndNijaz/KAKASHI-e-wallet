@@ -1,7 +1,7 @@
 import { API_URL, REGISTER_PAGE } from "./configuration.js";
 import { LOGIN_PAGE } from "./configuration.js";
-import xPic from "../assets/pngkit_png-red-x_3741314.png";
-// let xPic = "../assets/pngkit_png-red-x_3741314.png";
+// import xPic from "../assets/pngkit_png-red-x_3741314.png";
+let xPic = "../assets/pngkit_png-red-x_3741314.png";
 
 export const getJSON = async function(url){
     try {
@@ -106,6 +106,10 @@ export const errorModal = function(message){
     
     document.getElementsByTagName("body")[0].insertAdjacentHTML("afterend", modal);
     document.getElementById("close-modal-button").addEventListener("click", () => document.getElementById("modal").remove());
+}
+
+export const removeSpinner = function(){
+    if(document.getElementById("spinnerBackground")) document.getElementById("spinnerBackground").remove();
 }
 
 

@@ -3,6 +3,7 @@ import registerView from "./views/registerView.js";
 import cardView from "./views/cardView.js";
 import loginView from "./views/loginView.js";
 import transactionsView from "./views/transactionsView.js";
+import { removeSpinner } from "./helpers.js";
 
 
 //Transactions view
@@ -11,6 +12,8 @@ const transactions = async function(user){
     transactionsView.setCurrentUser(user);
     //This will generate neccesary html for transactions view
     transactionsView.generateHTML();
+    //This removes spiner when transaction page is loaded and when html is displayed
+    removeSpinner();
     //This will initialize HTML elements
     transactionsView.initializeHTMLelements();
     //This gonna fill html data with user data
@@ -28,6 +31,8 @@ const transactions = async function(user){
 
 //Login view
 const login = async function(){
+    //This removes spinerr as soon as login loads
+    removeSpinner();
     //Its aleary created so only it needs to initialize element
     loginView.initializeHTMLelements();
     //Add event listener when login is clicked
@@ -37,18 +42,22 @@ const login = async function(){
 
 //Card view 
 const card = async function(user){
-
     //Function that calls function from model for patching user account
     //1. Argument: UserID 
     //2. Argument: credit card object
     const patchRegisterCreditCard = async function(user, creditCard){
         await model.patchUserCreditCard(user, creditCard);
     }
-
+    
     //This function generates html for payment view
     cardView.generateHTML(user);
+
+    //This removes spiner when card is loaded and when html is displayed
+    removeSpinner();
+
     //When markup generates (after Sign Up) it will automatically incialise object elements to dom elements values
     cardView.initializeHTMLelements();
+
     //Run card view live events
     cardView.liveFormInputEvent();
     

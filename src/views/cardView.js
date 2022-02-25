@@ -1,8 +1,9 @@
 import View from "./view.js";
 import { errorModal } from "../helpers.js";
 import { showLogin } from "../helpers.js";
-import  chip  from "../../assets/chip.png";
-// let chip = "../../assets/chip.png";
+import { removeSpinner } from "../helpers.js";
+// import  chip  from "../../assets/chip.png";
+let chip = "../../assets/chip.png";
 
 class CardView extends View {
     #nameOnCard;
@@ -114,29 +115,35 @@ class CardView extends View {
         let user;
         let users;
         this.#proceedButton.addEventListener("click", async function(){
+            this.renderSpinner();
             //If form isn't filled it will throw error!
             if(!this.checkFrom([this.#nameOnCard.value, this.#cardNumber.value, this.#validThroughOne.value, this.#validThroughTwo.value ,this.#cvv.value])){
+                removeSpinner();
                 errorModal("Please fill from!");
                 return;
             }
             //If user enters invalid credit card number, it will throw error!
             if(this.#creditCard.cardNumber.length !== 16){
+                removeSpinner();
                 errorModal("Please enter valid card number!");
                 return;
             }
             //If user enters invalid valid through month, it will throw error!
             if(+this.#validThroughOne.value < 1 || +this.#validThroughOne.value > 12){
+                removeSpinner();
                 errorModal("Invalid month!");
                 this.clearFormElements([this.#validThroughOne]);
                 return;
             }
             //If user enters invalid valid through year and valid through year but passed month, it will throw error!
             if((+this.#validThroughTwo.value === +String(new Date().getFullYear()).slice(2)) && (+this.#validThroughOne.value < ((new Date().getMonth()+1)))){
+                removeSpinner();
                 errorModal("Your credit card is not valid!");
                 this.clearFormElements([this.#validThroughTwo]);
                 return;
             }
             if(this.#cvv.value.length < 3){
+                removeSpinner();
                 errorModal("Invalid cvv!");
                 this.clearFormElements([this.#cvv]);
                 return;

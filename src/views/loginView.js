@@ -64,6 +64,7 @@ class LoginView extends View {
 
         //Event listener for button
         this.#loginButton.addEventListener("click", async function(e){
+            this.renderSpinner();
             e.preventDefault();
             
             //Check if form is filled

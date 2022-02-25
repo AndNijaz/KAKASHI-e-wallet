@@ -2,6 +2,7 @@ import View from "./view.js";
 import { errorModal } from "../helpers.js";
 import { showLogin } from "../helpers.js";
 import { hideRegister } from "../helpers.js";
+import { removeSpinner } from "../helpers.js";
 
 
 class Register extends View{
@@ -35,6 +36,12 @@ class Register extends View{
         return this.#user;
     };
 
+    _checkMail(){
+        let regexEmail = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+        if((this.#email.value).match(regexEmail)) return true;
+        else return false;
+    }
+
     //As argument recieves users array
     _checkUsername(users){
         return users.some(user => user.username === this.#username.value) ? false : true;
@@ -61,28 +68,40 @@ class Register extends View{
     }
 
     async _createUserObject(fetchUsers, sendUser, cardView){
+        this.renderSpinner();
         //Fetching users
         const users = await fetchUsers();
         //If form is not filled, it will return false
         if(!this.checkFrom([this.#firstName.value, this.#lastName.value, this.#email.value, this.#username.value, this.#password.value, this.#cPassword.value])){
+            removeSpinner();
             errorModal("Please fill form!");
             return;
         };
+
+        //If email format is not good, it will return false
+        if(!this._checkMail()){
+            removeSpinner();
+            errorModal("Invalid email format!")
+            return;
+        }
         
         //If there is duplicate username, it will return false
         if(!this._checkUsername(users)){
+            removeSpinner();
             errorModal("Username already in use!");
             return;
         }
 
         //If passwords don't match it will return false
         if(!this._checkPassword()) {
+            removeSpinner();
             errorModal("Password don't match!");
             return; 
         }
 
         //If cookies arent checked, it will return false
         if(!this._checkCookies()){
+            removeSpinner();
             errorModal("Please check cookies!");
             return;
         }

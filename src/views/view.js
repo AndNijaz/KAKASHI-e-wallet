@@ -33,5 +33,11 @@ export default class View {
     checkFrom(formElements){
         return formElements.some(el => el === "") ? false : true;
     };
+
+    renderSpinner(){
+        if(document.getElementById("spinnerBackground")) return;
+        const markup = `<div id="spinnerBackground"><div class="loading loading--full-height"></div></div>`;
+        document.getElementsByTagName("body")[0].insertAdjacentHTML("afterend", markup);
+    }
 }
 
