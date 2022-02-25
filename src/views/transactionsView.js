@@ -1,8 +1,8 @@
 import View from "./view.js";
 import { errorModal } from "../helpers.js";
 import { showLogin } from "../helpers.js";
-// import hair from "../../assets/hair.png";
-let hair = "../../assets/hair.png";
+import hair from "../../assets/hair.png";
+// let hair = "../../assets/hair.png";
 
 class TransactionView extends View {
     #mainRegister = document.getElementById("main-register");

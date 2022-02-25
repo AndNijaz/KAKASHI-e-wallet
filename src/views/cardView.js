@@ -2,8 +2,8 @@ import View from "./view.js";
 import { errorModal } from "../helpers.js";
 import { showLogin } from "../helpers.js";
 import { removeSpinner } from "../helpers.js";
-// import  chip  from "../../assets/chip.png";
-let chip = "../../assets/chip.png";
+import  chip  from "../../assets/chip.png";
+// let chip = "../../assets/chip.png";
 
 class CardView extends View {
     #nameOnCard;
