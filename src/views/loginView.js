@@ -2,6 +2,7 @@ import View from "./view.js";
 import { errorModal } from "../helpers.js";
 import { hideLogin } from "../helpers.js";
 import { showrRegister } from "../helpers.js";
+import { removeSpinner } from "..helpers.js";
 
 class LoginView extends View {
 
@@ -44,6 +45,7 @@ class LoginView extends View {
 
         //If credentials didn't pass, there won't be current user, so normally, that means we entered wrong username or password
         if(!this.getCurrentUser()) {
+            removeSpinner();
             errorModal("Invalid username or password");
             return;
         };
@@ -69,6 +71,7 @@ class LoginView extends View {
             
             //Check if form is filled
             if(!this.checkFrom([this.#loginUsername.value, this.#loginPassword.value])){
+                removeSpinner();
                 errorModal("Please fill form");
                 return;
             }

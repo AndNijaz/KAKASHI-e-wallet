@@ -281,6 +281,7 @@ class TransactionView extends View {
         const deletePassword = this.#delAccountPW.value;
 
         if(!(user.username === deleteUsername && user.password === deletePassword)){
+            removeSpinner();
             errorModal("Invalid username or password!");
             return;
         }
