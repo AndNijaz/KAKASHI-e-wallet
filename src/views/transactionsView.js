@@ -280,16 +280,21 @@ class TransactionView extends View {
         const deleteUsername = this.#delAccountUsername.value;
         const deletePassword = this.#delAccountPW.value;
 
-        if(user.username === deleteUsername && user.password === deletePassword){
-            //Guard clausue (if serverd doesent work, it wont be able to fetch users and it will autmatically throw error. We'll see if the server works it will be able to fetch users)
-            if(!await fetchUsers()) return;
-            await removeAccount(user);
-            // await removeAccount(user);
-            this.setCurrentUser("");
-        } else {
+        if(!(user.username === deleteUsername && user.password === deletePassword)){
             errorModal("Invalid username or password!");
+            return;
         }
-
+        
+        // if(user.username === deleteUsername && user.password === deletePassword){
+        //Guard clausue (if serverd doesent work, it wont be able to fetch users and it will autmatically throw error. We'll see if the server works it will be able to fetch users)
+        if(!await fetchUsers()) return;
+        await removeAccount(user);
+        this.setCurrentUser("");
+        // } 
+        // else {
+            //     errorModal("Invalid username or password!");
+            // }
+        //If there is current user somehow, it wont execute remove.    
         if(this.getCurrentUser()) return;
         document.getElementById("index-main").remove();
         showLogin();
@@ -326,6 +331,7 @@ class TransactionView extends View {
 
     addHandlerLogOut(login){
         this.#logOut.addEventListener("click", function(){
+            this.setCurrentUser("");
             document.getElementById("index-main").remove();
             showLogin();
             login();
@@ -343,39 +349,21 @@ class TransactionView extends View {
             this._movementLogic("withdraw", user, this.#curBal, patchMovementsFunction, "Credit Card");
 
             await patchUserCreditCard(user, user.creditCard);
-            // this.#curBal;
         }.bind(this));
     }
 
+    _sortMovementsLogic(type, movements, arrow){
+        this.#sortSpan.innerHTML = `${type === "toUP" ? "\&#8595" : "\&#8593"}`;
+        movements.sort(function(a, b){
+            return `${type === "toUP" ? a.price-b.price : b.price-a.price}`
+        });
+        this.#movementsContainer.innerHTML = "";
+        this._displayMovement(movements);
+        this.#sort = `${type === "toUP" ? "toLower" : "toUP"}`
+    }
+
     addHandlerSort(){
-        let movements;
-        this.#sortMoney.addEventListener("click", function(){
-            // if(this.#sort === "toUP") this.#sortSpan.innerHTML = "\&#8595";
-            // if(sort === "toLower") this.#sortSpan.innerHTML = "\&#8593";
-
-            movements = this.getCurrentUser().movements;
-
-            if(this.#sort === "toUP"){
-                this.#sortSpan.innerHTML = "\&#8595";
-                movements.sort(function(a, b){
-                    return a.price-b.price;
-                })
-                this.#movementsContainer.innerHTML = "";
-                this.#sortSpan.innerHTML = "\&#8595";
-                this._displayMovement(movements);
-                this.#sort = "toLower";
-            }
-            else if(this.#sort === "toLower"){
-                this.#sortSpan.innerHTML = "\&#8593"
-                movements.sort(function(a, b){
-                    return b.price-a.price;
-                })
-                this.#movementsContainer.innerHTML = "";
-                this.#sortSpan.innerHTML = "\&#8593";
-                this._displayMovement(movements);
-                this.#sort = "toUP";
-            }
-        }.bind(this));
+        this.#sortMoney.addEventListener("click", _sortMovementsLogic.bind(this, this.#sort, this.getCurrentUser().movements));
     }
 }
 

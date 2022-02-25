@@ -17,9 +17,9 @@ const transactions = async function(user){
     transactionsView.fillHTML();
     //This will run eventlistener of transactions functions block (deposit, withdraw, delete account);
     transactionsView.transactionsFunctions(model.patchUserCreditCard, model.patchUserMovements, model.fetchUserAccounts, model.removeAccount, login);
-
+    //This will run eventlistener for logout
     transactionsView.addHandlerLogOut(login);
-
+    //This will run eventlistner for transfer on card 
     transactionsView.addHandlerTransferOnCard(model.patchUserCreditCard, model.patchUserMovements);
 
     transactionsView.addHandlerSort();
