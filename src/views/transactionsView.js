@@ -2,7 +2,7 @@ import View from "./view.js";
 import { errorModal } from "../helpers.js";
 import { showLogin } from "../helpers.js";
 import hair from "../../assets/hair.png";
-// let hair = "../../assets/hair.png"
+// let hair = "../../assets/hair.png";
 
 class TransactionView extends View {
     #mainRegister = document.getElementById("main-register");
@@ -363,7 +363,7 @@ class TransactionView extends View {
     }
 
     addHandlerSort(){
-        this.#sortMoney.addEventListener("click", _sortMovementsLogic.bind(this, this.#sort, this.getCurrentUser().movements));
+        this.#sortMoney.addEventListener("click", this._sortMovementsLogic.bind(this, this.#sort, this.getCurrentUser().movements));
     }
 }
 
