@@ -352,18 +352,23 @@ class TransactionView extends View {
         }.bind(this));
     }
 
-    _sortMovementsLogic(type, movements, arrow){
-        this.#sortSpan.innerHTML = `${type === "toUP" ? "\&#8595" : "\&#8593"}`;
+    _sortMovementsLogic(movements){
+        console.log(this.#sort);
+        this.#sortSpan.innerHTML = `${this.#sort === "toUP" ? "\&#8595" : "\&#8593"}`;
         movements.sort(function(a, b){
-            return `${type === "toUP" ? a.price-b.price : b.price-a.price}`
-        });
+            return `${this.#sort === "toUP" ? a.price-b.price : b.price-a.price}`
+        }.bind(this));
         this.#movementsContainer.innerHTML = "";
         this._displayMovement(movements);
-        this.#sort = `${type === "toUP" ? "toLower" : "toUP"}`
+        this.#sort = `${this.#sort === "toUP" ? "toLower" : "toUP"}`
+        console.log(this.#sort);
     }
-
+    
     addHandlerSort(){
-        this.#sortMoney.addEventListener("click", this._sortMovementsLogic.bind(this, this.#sort, this.getCurrentUser().movements));
+        this.#sortMoney.addEventListener("click", function(){
+            console.log("clciked");
+            this._sortMovementsLogic(this.getCurrentUser().movements);
+        }.bind(this));
     }
 }
 
