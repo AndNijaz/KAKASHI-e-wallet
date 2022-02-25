@@ -2,7 +2,7 @@ import View from "./view.js";
 import { errorModal } from "../helpers.js";
 import { hideLogin } from "../helpers.js";
 import { showrRegister } from "../helpers.js";
-import { removeSpinner } from "..helpers.js";
+import { removeSpinner } from "../helpers.js";
 
 class LoginView extends View {
 
