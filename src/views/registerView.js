@@ -25,6 +25,7 @@ class Register extends View{
 
     addHandlerSignIn(loginView){
         this.#buttonSignIn.addEventListener("click", function(){
+            console.log("signclicked");
             hideRegister();
             this.clearFormElements([this.#firstName, this.#lastName, this.#email, this.#username, this.#password, this.#cPassword]);
             showLogin();

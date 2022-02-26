@@ -11,6 +11,7 @@ export const getJSON = async function(url){
         return data;
 
     } catch(err){
+        removeSpinner();
         errorModal(`${err.message}, ${err.message === "Failed to fetch" ? "Server error." : ""}!`);
     }
 }
@@ -30,6 +31,7 @@ export const sendJSON = async function(url, uploadData){
         return res;
 
     } catch(err){
+        removeSpinner();
         errorModal(err.message);
     }
 }
@@ -49,6 +51,7 @@ export const patchUserCreditCardJSON = async function(userID, newCreditCard){
         if(!res.ok) throw new Error(`${data.message} ${res.status}`);
         return res;
     } catch(err){
+        removeSpinner();
         errorModal(err.message);
     }
 }
@@ -68,6 +71,7 @@ export const patchUserMovementsJSON = async function(userID, newMovements){
         if(!res.ok) throw new Error(`${data.message} ${res.status}`);
         return res;
     } catch(err){
+        removeSpinner();
         errorModal(err.message);
     }
 }   
@@ -83,6 +87,7 @@ export const removeAccountJSON = async function(userID){
         return res;
     }
     catch(err){
+        removeSpinner();
         errorModal(err.message);
     }
 }
