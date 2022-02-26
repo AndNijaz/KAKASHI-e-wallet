@@ -15,7 +15,7 @@ export const responsiveInit = function(){
 
             if(this.document.getElementById("pfpContainer")) return;
 
-            body.style.backgroundImage =  `url("../assets/KAKASHI.jpg")`;
+            body.style.backgroundImage =  `url("../assets/wp8641496.jpg")`;
             const markup = `
             <div id="pfpContainer">
                 <div id="pfp">
@@ -26,7 +26,7 @@ export const responsiveInit = function(){
             this.document.getElementById("form-container").insertAdjacentHTML("afterbegin", markup);
 
 
-            
+
         }
     })
 }

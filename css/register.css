@@ -53,7 +53,8 @@ clip-path: polygon(70% 0, 100% 0, 100% 100%, 34% 100%); */
 
 #logo > h1 {
   font-size: 3.4vw;
-  font-family: "Night in Tokyo", sans-serif;
+  /* font-family: "Night in Tokyo", sans-serif; */
+  font-family: "Kalam", cursive;
   background: -webkit-linear-gradient(#000000, #8edbff);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
