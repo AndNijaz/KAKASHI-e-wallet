@@ -30,7 +30,9 @@ class LoginView extends View {
     }
 
     _checkUserCredentials(users, transactions){
+        if(document.getElementById("modal")) return;
         //If there is somehow current user, it will stop executing, because current user should be make now, it shouldt be created up to now.
+        console.log(this.getCurrentUser());
         if(this.getCurrentUser()) return;
         //Temp user
         let usr = "";
@@ -44,6 +46,7 @@ class LoginView extends View {
         else this.setCurrentUser("");
 
         //If credentials didn't pass, there won't be current user, so normally, that means we entered wrong username or password
+        console.log(this.getCurrentUser());
         if(!this.getCurrentUser()) {
             removeSpinner();
             errorModal("Invalid username or password");

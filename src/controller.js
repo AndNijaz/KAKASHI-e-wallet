@@ -4,6 +4,7 @@ import cardView from "./views/cardView.js";
 import loginView from "./views/loginView.js";
 import transactionsView from "./views/transactionsView.js";
 import { removeSpinner } from "./helpers.js";
+import * as responsive from "./responsiveDesign.js";
 
 
 //Transactions view
@@ -87,5 +88,6 @@ const register = async function(){
 //Function which trigger on load
 const init = async function(){
     await register();
+    responsive.responsiveInit();
 }
 init();
