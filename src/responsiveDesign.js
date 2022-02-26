@@ -25,6 +25,8 @@ export const responsiveInit = function(){
             `
             this.document.getElementById("form-container").insertAdjacentHTML("afterbegin", markup);
 
+
+            
         }
     })
 }

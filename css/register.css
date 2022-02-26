@@ -335,6 +335,7 @@ clip-path: polygon(70% 0, 100% 0, 100% 100%, 34% 100%); */
 
   #main-register {
     width: 100%;
+    height: 96vh;
     background-color: white;
     flex-direction: column;
     border-radius: 25px;
@@ -347,13 +348,13 @@ clip-path: polygon(70% 0, 100% 0, 100% 100%, 34% 100%); */
   }
 
   #logo > img {
-    width: 30vw;
-    height: 18vh;
+    width: 25vw;
+    height: 20vh;
     margin-right: 0;
   }
   #logo > h1 {
-    font-size: 8vw;
-    margin-right: 10vw;
+    font-size: 7vw;
+    margin-right: 15vw;
   }
   #form-container {
     margin-left: 0;
@@ -362,8 +363,14 @@ clip-path: polygon(70% 0, 100% 0, 100% 100%, 34% 100%); */
     display: none;
   }
   #form-sub-container {
+    justify-content: flex-start;
     margin-left: 0;
     height: 80vh;
+  }
+  #form-sub-container > form {
+    align-items: center;
+    transform: translate(-5%);
+    justify-content: flex-start;
   }
   .input-text-register {
     flex-direction: column;
@@ -404,5 +411,56 @@ clip-path: polygon(70% 0, 100% 0, 100% 100%, 34% 100%); */
     border-radius: 50px;
     position: relative;
     z-index: -1;
+  }
+
+  .input-text-register {
+    display: none;
+  }
+
+  .input-register {
+    margin-bottom: 5%;
+    width: 50vw;
+    height: 3vh;
+    font-size: 2vh;
+  }
+
+  #mail-inp {
+    width: 50vw;
+  }
+  #username-inp {
+    width: 50vw;
+  }
+  #form-important-row {
+    width: 55vw;
+    flex-wrap: wrap;
+    flex-direction: row;
+    justify-content: space-between;
+  }
+  .check-text {
+    font-size: 3vw;
+  }
+  #mail {
+    display: none;
+  }
+  #forMail {
+    display: none;
+  }
+  #forTerms {
+    margin-left: 5%;
+  }
+  #form-buttons {
+    width: 55vw;
+    height: 13vh;
+    justify-content: space-around;
+    align-items: center;
+  }
+  #sign-up {
+    width: 50vw;
+    font-size: 5vw;
+  }
+  #sign-in {
+    width: 25vw;
+    font-size: 5vw;
+    margin-left: 0%;
   }
 }
