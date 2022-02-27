@@ -19,7 +19,8 @@ body {
 #payment-header > h1 {
   font-size: 3.4vw;
   /* font-family: "Night in Tokyo", sans-serif; */
-  font-family: "Kalam", cursive;
+  /* font-family: "Kalam", cursive; */
+  font-family: "night_in_tokyoregular";
   background: -webkit-linear-gradient(#000000, #8edbff);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;

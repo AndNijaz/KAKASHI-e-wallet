@@ -37,7 +37,8 @@
 #login-h1 {
   font-size: 3.4vw;
   /* font-family: "Night in Tokyo", sans-serif; */
-  font-family: "Kalam", cursive;
+  /* font-family: "Kalam", cursive; */
+  font-family: "night_in_tokyoregular";
   background: -webkit-linear-gradient(#000000, #8edbff);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -144,5 +145,97 @@
 
   to {
     transform: rotate(1turn);
+  }
+}
+
+@media only screen and (min-device-width: 320px) and (max-device-width: 480px) and (-webkit-min-device-pixel-ratio: 2) and (orientation: portrait) {
+  body {
+    background-size: 200vw 100vh;
+    background-position: top;
+    background-repeat: no-repeat;
+    margin: 15px;
+  }
+  body > * {
+    z-index: 10;
+    position: relative;
+  }
+  body::after {
+    content: "";
+    display: block;
+    width: 100%;
+    height: 100%;
+    background-color: #aaa;
+    position: absolute;
+    top: 0;
+    left: 0;
+    opacity: 0.4;
+    z-index: 0;
+  }
+
+  #login-main {
+    width: 100%;
+    height: 96vh;
+    background-color: white;
+    flex-direction: column;
+    border-radius: 25px;
+  }
+
+  #login-aside {
+    display: none;
+  }
+
+  #Login-section {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+  }
+
+  #login-h1 {
+    font-size: 15vw;
+    margin: 0px;
+    text-align: center;
+  }
+
+  #pfpContainer2 {
+    transform: translate(3%, -80%);
+    display: flex;
+    justify-content: center;
+    width: 100%;
+  }
+
+  #login-box-holder {
+    justify-content: center;
+    align-items: center;
+  }
+
+  .input-login {
+    width: 60vw;
+    font-size: 5vw;
+  }
+
+  #pass {
+    font-size: 5vw;
+    margin-bottom: 10%;
+  }
+
+  #form-buttons-login {
+    display: flex;
+    flex-direction: column;
+    width: 55vw;
+    height: 13vh;
+    justify-content: space-around;
+    align-items: center;
+  }
+  #login {
+    width: 55vw;
+    font-size: 5vw;
+  }
+  #noAccount {
+    width: 35vw;
+    font-size: 5vw;
+  }
+
+  #passHelp {
+    font-size: 5vw;
   }
 }

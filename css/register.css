@@ -7,6 +7,15 @@
 /* -webkit-clip-path: polygon(70% 0, 100% 0, 100% 100%, 34% 100%);
 clip-path: polygon(70% 0, 100% 0, 100% 100%, 34% 100%); */
 
+@font-face {
+  font-family: "night_in_tokyoregular";
+  src: url("../assets/fonts/night-in-tokyo.regular-webfont.woff2")
+      format("woff2"),
+    url("../assets/fonts/night-in-tokyo.regular-webfont.woff") format("woff");
+  font-weight: normal;
+  font-style: normal;
+}
+
 .hidden {
   display: none;
 }
@@ -54,7 +63,8 @@ clip-path: polygon(70% 0, 100% 0, 100% 100%, 34% 100%); */
 #logo > h1 {
   font-size: 3.4vw;
   /* font-family: "Night in Tokyo", sans-serif; */
-  font-family: "Kalam", cursive;
+  /* font-family: "Kalam", cursive; */
+  font-family: "night_in_tokyoregular";
   background: -webkit-linear-gradient(#000000, #8edbff);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -310,9 +320,6 @@ clip-path: polygon(70% 0, 100% 0, 100% 100%, 34% 100%); */
 
 /* @media only screen and (min-device-width: 280px) and (max-device-width: 480px) and (-webkit-min-device-pixel-ratio: 2) and (orientation: portrait) { */
 @media only screen and (min-device-width: 320px) and (max-device-width: 480px) and (-webkit-min-device-pixel-ratio: 2) and (orientation: portrait) {
-  * {
-    /* color: red; */
-  }
   body {
     background-size: 200vw 100vh;
     background-position: top;
@@ -367,6 +374,7 @@ clip-path: polygon(70% 0, 100% 0, 100% 100%, 34% 100%); */
     display: none;
   }
   #form-sub-container {
+    position: relative;
     justify-content: flex-start;
     margin-left: 0;
     height: 80vh;
@@ -377,7 +385,7 @@ clip-path: polygon(70% 0, 100% 0, 100% 100%, 34% 100%); */
     justify-content: flex-start;
   }
   .input-text-register {
-    font-size: 3vw;
+    display: none;
   }
   .form-row-register {
     display: flex;
@@ -386,6 +394,9 @@ clip-path: polygon(70% 0, 100% 0, 100% 100%, 34% 100%); */
   .inputs-place-register {
     display: flex;
     flex-direction: column;
+  }
+  .input-register {
+    margin-top: 10%;
   }
   #register-aside {
     display: none;
@@ -449,7 +460,6 @@ clip-path: polygon(70% 0, 100% 0, 100% 100%, 34% 100%); */
     display: none;
   }
   #forTerms {
-    margin-left: 5%;
   }
   #form-buttons {
     width: 55vw;
@@ -465,5 +475,8 @@ clip-path: polygon(70% 0, 100% 0, 100% 100%, 34% 100%); */
     width: 25vw;
     font-size: 5vw;
     margin-left: 0%;
+  }
+  #termsHelp {
+    font-size: 3vw;
   }
 }
