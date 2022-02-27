@@ -436,6 +436,9 @@ clip-path: polygon(70% 0, 100% 0, 100% 100%, 34% 100%); */
     width: 50vw;
     height: 1.5vh;
     font-size: 2vh;
+    border-bottom: 2px solid #6c8692;
+    border-image: none;
+    border-image-slice: 0;
   }
 
   #mail-inp {
@@ -478,5 +481,26 @@ clip-path: polygon(70% 0, 100% 0, 100% 100%, 34% 100%); */
   }
   #termsHelp {
     font-size: 3vw;
+  }
+
+  #spinnerBackground {
+    z-index: 100;
+  }
+  .loading {
+    z-index: 100;
+  }
+  .loading::after {
+    z-index: 100;
+  }
+
+  #modal {
+    z-index: 100;
+  }
+
+  #modal-container {
+    width: 50vw;
+  }
+
+  #x-holder > img {
   }
 }

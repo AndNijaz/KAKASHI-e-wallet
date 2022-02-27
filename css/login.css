@@ -211,6 +211,9 @@
   .input-login {
     width: 60vw;
     font-size: 5vw;
+    border-bottom: 2px solid #6c8692;
+    border-image: none;
+    border-image-slice: 0;
   }
 
   #pass {
@@ -237,5 +240,18 @@
 
   #passHelp {
     font-size: 5vw;
+  }
+
+  #spinnerBackground {
+    z-index: 100;
+  }
+  .loading {
+    z-index: 100;
+  }
+  .loading::after {
+    z-index: 100;
+  }
+  #modal {
+    z-index: 100;
   }
 }
