@@ -1,7 +1,7 @@
-// import background from "../assets/pravim se ja.png";
-// import pfp from "../assets/Kralj-min.png";
-const background = "../assets/pravim se ja.png";
-const pfp = "../assets/Kralj-min.png";
+import background from "../assets/pravim se ja.png";
+import pfp from "../assets/Kralj-min.png";
+// const background = "../assets/pravim se ja.png";
+// const pfp = "../assets/Kralj-min.png";
 export const responsiveInit = function(){
     
     let state = 1;
