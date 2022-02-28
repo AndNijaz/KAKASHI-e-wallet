@@ -1,5 +1,6 @@
 import background from "../assets/pravim se ja.png";
 import pfp from "../assets/Kralj-min.png";
+import kakashi from "../assets/KAKASHI.jpg"
 // const background = "../assets/pravim se ja.png";
 // const pfp = "../assets/Kralj-min.png";
 export const responsiveInit = function(){
@@ -31,7 +32,7 @@ export const responsiveInit = function(){
             
             if(this.document.getElementById("pfpContainer")) return;
 
-            body.style.backgroundImage =  `url("${background}")`;
+            body.style.backgroundImage =  `url("${kakashi}")`;
 
             const markup = `
             <div id="pfpContainer">
