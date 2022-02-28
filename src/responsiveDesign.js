@@ -3,7 +3,7 @@ import pfp from "../assets/Kralj-min.png";
 // const background = "../assets/pravim se ja.png";
 // const pfp = "../assets/Kralj-min.png";
 export const responsiveInit = function(){
-    
+    console.log("happen");
     let state = 1;
     
     window.addEventListener("resize", function(){
@@ -20,7 +20,15 @@ export const responsiveInit = function(){
         }
         else {
 
-
+            if(this.document.getElementById("index-main")){
+                body.style.setProperty("--hardHight", "150%");
+                // a.setProperty("height", "170%");
+            } 
+            else {
+                body.style.setProperty("--hardHight", "100%");
+                body.style.height = "95vh";
+            }
+            
             if(this.document.getElementById("pfpContainer")) return;
 
             body.style.backgroundImage =  `url("${background}")`;
@@ -49,4 +57,8 @@ export const responsiveInit = function(){
 
         }
     })
+}
+
+export const checkMobile = function(){
+
 }

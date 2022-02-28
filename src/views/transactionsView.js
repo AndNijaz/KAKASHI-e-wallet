@@ -2,8 +2,8 @@ import View from "./view.js";
 import { errorModal } from "../helpers.js";
 import { showLogin } from "../helpers.js";
 import { removeSpinner } from "../helpers.js";
-// import hair from "../../assets/hair.png";
-let hair = "../../assets/hair.png";
+import hair from "../../assets/hair.png";
+// let hair = "../../assets/hair.png";
 
 class TransactionView extends View {
     #mainRegister = document.getElementById("main-register");
@@ -74,8 +74,8 @@ class TransactionView extends View {
                 <div id="balance-header">
                     <div id="balance-header-holder">
                         <div>
-                            <p>Current balance</p>
-                            <p>As of <span id="as-of-date"></span></p>
+                            <span id="cb">Current balance</span>
+                            <span id="asof">As of <span id="as-of-date"></span></span>
                         </div>
                         <p><span id="updatable-balance"></span> KM</p>
                     </div>
@@ -180,8 +180,8 @@ class TransactionView extends View {
         <div class="transaction">
             <div class="t-div">
                 <div class="${mov.price > 0 ? "deposit" : "withdraw"}">${mov.price > 0 ? "Deposit" : "Withdraw"}</div>
-                <div class="date-child">${new Date(mov.date).getDate() + "/" + new Date(mov.date).getMonth()+1 + "/" + new Date(mov.date).getFullYear()}</div>
-                ${mov.reciever ? `<div>${mov.reciever}</div>` : ""}
+                <div class="date-child"><span class="dc">${new Date(mov.date).getDate() + "/" + new Date(mov.date).getMonth()+1 + "/" + new Date(mov.date).getFullYear()}</span></div>
+                ${mov.reciever ? `<div><span class="mr">${mov.reciever}</span></div>` : ""}
             </div>
                 <div>${mov.price} KM</div>
             </div>

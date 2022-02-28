@@ -236,6 +236,7 @@
   #noAccount {
     width: 35vw;
     font-size: 5vw;
+    transform: translate(-5%);
   }
 
   #passHelp {

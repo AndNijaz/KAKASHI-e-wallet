@@ -3,6 +3,7 @@ import { errorModal } from "../helpers.js";
 import { hideLogin } from "../helpers.js";
 import { showrRegister } from "../helpers.js";
 import { removeSpinner } from "../helpers.js";
+import * as responsiveDesign from "../responsiveDesign.js";
 
 class LoginView extends View {
 
@@ -89,6 +90,7 @@ class LoginView extends View {
         this.#buttonNoAccount.addEventListener("click", function(){
             hideLogin();
             showrRegister();
+            responsiveDesign.responsiveInit();
         }.bind(this));
     }
 }

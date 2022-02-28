@@ -227,3 +227,106 @@ body {
     transform: rotate(1turn);
   }
 }
+
+@media only screen and (min-device-width: 320px) and (max-device-width: 480px) and (-webkit-min-device-pixel-ratio: 2) and (orientation: portrait) {
+  body {
+    background-size: 200vw 100vh;
+    background-position: top;
+    background-repeat: no-repeat;
+    margin: 15px;
+  }
+  body > * {
+    z-index: 10;
+    position: relative;
+  }
+
+  body::after {
+    content: "";
+    display: block;
+    width: 100%;
+    height: 100%;
+    background-color: #aaa;
+    position: absolute;
+    top: 0;
+    left: 0;
+    opacity: 0.4;
+    z-index: 0;
+  }
+
+  #payment-body {
+    /* width: 100%; */
+    height: 86.5vh;
+    background-color: white;
+    /* flex-direction: column; */
+    border-radius: 25px;
+  }
+
+  #payment-header > h1 {
+    font-size: 8vw;
+  }
+
+  #card-holder {
+    flex-direction: column;
+  }
+  #credit-card-holder {
+  }
+  #credit-card {
+    width: 60vw;
+    height: 20vh;
+    margin-top: 15vh;
+    margin-bottom: 5vh;
+  }
+  #chip > img {
+    width: 15vw;
+    height: 7vh;
+  }
+  .num {
+    font-size: 5.5vw;
+  }
+  #info {
+    font-size: 3.5vw;
+  }
+  #form-holder {
+  }
+  #data-inputs {
+    width: 70vw;
+  }
+  .input-card {
+    width: 65vw;
+    font-size: 3.5vw;
+    border-bottom: 2px solid #6c8692;
+    border-image: none;
+    border-image-slice: 0;
+  }
+  .form-row {
+    margin: 0;
+    margin-top: 3.5vh;
+  }
+  #valid-row {
+    display: flex;
+    flex-direction: column;
+  }
+  .expiration {
+    display: flex;
+  }
+
+  #cvv {
+    margin-right: 100%;
+    margin-left: 10%;
+    width: 28vw;
+  }
+
+  .card-valid-inp {
+    font-size: 3.5vw;
+  }
+
+  #button-holder {
+    margin-top: 15vh;
+  }
+
+  #button-holder > button {
+    width: 50vw;
+    transform: translate(-2.5%);
+    font-size: 5vw;
+  }
+}

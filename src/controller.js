@@ -9,6 +9,7 @@ import * as responsive from "./responsiveDesign.js";
 
 //Transactions view
 const transactions = async function(user){
+    responsive.responsiveInit();
     //Because transactionsView is new object, it's current user will be reset so we have to manually set it again
     transactionsView.setCurrentUser(user);
     //This will generate neccesary html for transactions view
@@ -32,6 +33,7 @@ const transactions = async function(user){
 
 //Login view
 const login = async function(){
+    responsive.responsiveInit();
     //This removes spinerr as soon as login loads
     removeSpinner();
     //Its aleary created so only it needs to initialize element
@@ -43,6 +45,7 @@ const login = async function(){
 
 //Card view 
 const card = async function(user){
+    responsive.responsiveInit();
     //Function that calls function from model for patching user account
     //1. Argument: UserID 
     //2. Argument: credit card object
@@ -68,6 +71,7 @@ const card = async function(user){
 
 //rEGISTER VIEW
 const register = async function(){
+    responsive.responsiveInit();
     //Function which send user data to api
     const sendRegisterdUser = function(user){
         model.postUserAccount(user);
