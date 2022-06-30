@@ -5,6 +5,7 @@ This project is used for my final high school exam. This project is web service 
 ## Technologies 
 Technoloies used in this project are: Vanilla JavaScript, HTML, CSS, NODE.js for creating REST API (different repository), Parcel
 This project is live on Netlify domain
+https://kakashiewallet.netlify.app
 
 ## How it works?
 Firstly, you have to register account. Soon after, you will have form for inputing credit cart. !!! Use fake credit card data !!!. Then you log in. By default you have 10000 on credit card and you can deposit that on application account. From there you can send money to another account. You can create new accont and try to send money between that account. You can also transform money to credit card again. 
